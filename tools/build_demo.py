@@ -6,10 +6,10 @@
 Reads the copy-paste build prompt out of `prompts/一键构建.md` and injects it
 into the demo shell twice:
 
-* docs/demo.html      – offline build, everything inlined, works with no network
-* docs/demo-cdn.html  – same content plus web fonts and GSAP choreography
+* docs/index.html      – offline build, everything inlined, works with no network
+* docs/index-cdn.html  – same content plus web fonts and GSAP choreography
 
-Keeping one shell means the two pages can never drift apart in content.
+产物同时充当 GitHub Pages 首页。共用一个源文件，两个页面的内容永远不会走散。
 """
 
 from __future__ import annotations
@@ -19,7 +19,7 @@ import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
-SHELL = ROOT / "docs" / "_demo-shell.html"
+SHELL = ROOT / "docs" / "_shell.html"
 PROMPT_FILE = ROOT / "prompts" / "一键构建.md"
 PLACEHOLDER = "{{BUILD_PROMPT}}"
 
@@ -137,18 +137,18 @@ def extract_prompt() -> str:
 def main() -> int:
     shell = SHELL.read_text(encoding="utf-8")
     if PLACEHOLDER not in shell:
-        raise SystemExit(f"demo.html 缺少占位符 {PLACEHOLDER}；请先还原模板")
+        raise SystemExit(f"docs/_shell.html 缺少占位符 {PLACEHOLDER}；请先还原模板")
 
     prompt = extract_prompt()
     offline = shell.replace(PLACEHOLDER, prompt)
-    (ROOT / "docs" / "demo.html").write_text(offline, encoding="utf-8")
+    (ROOT / "docs" / "index.html").write_text(offline, encoding="utf-8")
 
     cdn = offline.replace("</head>", CDN_HEAD)
     cdn = cdn.replace("</body>", CDN_SCRIPT)
-    cdn = cdn.replace("<title>个人知识库 · 演示（离线版）", "<title>个人知识库 · 演示（CDN 增强版）")
-    (ROOT / "docs" / "demo-cdn.html").write_text(cdn, encoding="utf-8")
+    cdn = cdn.replace("<title>个人知识库 · 产品演示", "<title>个人知识库 · 产品演示（CDN 增强版）")
+    (ROOT / "docs" / "index-cdn.html").write_text(cdn, encoding="utf-8")
 
-    print(f"已生成 docs/demo.html 与 docs/demo-cdn.html（构建指令 {len(prompt)} 字符）")
+    print(f"已生成 docs/index.html 与 docs/index-cdn.html（构建指令 {len(prompt)} 字符）")
     return 0
 
 

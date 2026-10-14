@@ -22,4 +22,4 @@ jobs:
       - name: Verify demo pages are in sync with the build prompt
         run: |
           python3 tools/build_demo.py
-          git diff --exit-code docs/demo.html docs/demo-cdn.html
+          git diff --exit-code docs/index.html docs/index-cdn.html

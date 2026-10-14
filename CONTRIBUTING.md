@@ -43,9 +43,9 @@ python3 tools/vault_health_check.py --root .
 
 ## 改动演示页
 
-`docs/demo.html` 和 `docs/demo-cdn.html` 是**生成产物**，不要直接编辑。
+`docs/index.html` 和 `docs/index-cdn.html` 是**生成产物**，不要直接编辑。
 
-改 `docs/_demo-shell.html`，然后：
+改 `docs/_shell.html`，然后：
 
 ```bash
 python3 tools/build_demo.py
