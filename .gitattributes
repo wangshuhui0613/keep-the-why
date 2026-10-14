@@ -1,0 +1,12 @@
+# 全库统一 LF：跨平台的开源模板，行尾不统一会让 diff 变成整文件重写。
+* text=auto eol=lf
+
+# 真正的二进制，绝不参与行尾转换
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.gif binary
+*.pdf binary
+*.docx binary
+*.xlsx binary
+*.zip binary

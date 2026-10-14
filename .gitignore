@@ -1,0 +1,17 @@
+# Obsidian 本机界面状态：只属于这台电脑，不共享、不提交
+.obsidian/workspace.json
+.obsidian/workspace-mobile.json
+.obsidian/.cache/
+
+# 附件默认不进 Git —— 它们体积大，且最容易夹带身份证、合同、金额等隐私。
+# 如果你明确知道自己在做什么，再删掉下面这一行。
+02-工作经历/07_附件/*
+!02-工作经历/07_附件/.gitkeep
+
+# 各机私有状态与缓存
+.workbuddy/
+.trash/
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc
