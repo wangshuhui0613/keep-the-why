@@ -1,11 +1,13 @@
 #!/usr/bin/env python3
 """Check the personal knowledge base for the failures that are easy to miss.
 
-    python3 tools/vault_health_check.py --root .
+    python tools/vault_health_check.py --root .
 
 What it catches:
   * missing entry pages
-  * wikilinks that point at nothing (the classic silent rot)
+  * broken links in either syntax — [[wikilinks]] or [text](relative.md) —
+    which is the classic silent rot (GitHub renders the latter, Obsidian the
+    former; both must point at a real file)
   * action rows with missing fields, illegal states, or closed without evidence
   * credentials and other sensitive values that should never have been written
 
@@ -49,7 +51,12 @@ ACTION_FIELDS = (
 ACTION_ID_RE = re.compile(r"^[AEWJH]-\d{3}$")
 STATES = {"未开始", "进行中", "等待", "待判断", "暂缓", "状态不明", "已完成", "已取消"}
 CLOSED = {"已完成", "已取消"}
+# 同时支持两种链接写法：
+#   [[路径]]              —— Obsidian 双链（库内使用）
+#   [文字](路径.md)        —— 标准 Markdown 相对链接（GitHub 网页上可点击）
+# 两种都必须是真实存在的文件，否则就是断链。
 LINK_RE = re.compile(r"\[\[([^\]]+)\]\]")
+MD_LINK_RE = re.compile(r"(?<!!)\[[^\]]*\]\(([^)\s]+)\)")
 
 # 命中即报警。宁可误报，也不要让令牌进版本库。
 SENSITIVE_PATTERNS = (
@@ -80,13 +87,21 @@ def strip_code(text: str) -> str:
     return re.sub(r"`[^`\n]*`", "", re.sub(r"```.*?```", "", text, flags=re.S), flags=re.S)
 
 
-def extract_links(text: str) -> list[str]:
-    targets = []
+def extract_links(text: str) -> list[tuple[str, str]]:
+    """返回 (写法, 目标) 列表。写法仅用于报错时说明是哪种链接。"""
+    found = []
     for match in LINK_RE.finditer(strip_code(text)):
         target = match.group(1).replace(r"\|", "|").split("|", 1)[0].split("#", 1)[0].strip()
         if target:
-            targets.append(target)
-    return targets
+            found.append(("[[...]]", target))
+    for match in MD_LINK_RE.finditer(strip_code(text)):
+        target = match.group(1)
+        if target.startswith(("http://", "https://", "mailto:", "#")):
+            continue  # 外链与页内锚点不强制解析
+        target = target.split("#", 1)[0].split("?", 1)[0]
+        if target.endswith(".md") or "/" in target:
+            found.append(("[...](...)", target))
+    return found
 
 
 def resolve(root: Path, target: str) -> list[Path]:
@@ -105,19 +120,26 @@ def check_required(root: Path) -> list[str]:
 
 def check_links(root: Path) -> list[str]:
     errors = []
-    cache: dict[str, int] = {}
     for path in library_files(root):
         if path.suffix.lower() != ".md":
             continue
         text = path.read_text(encoding="utf-8", errors="replace")
-        for target in extract_links(text):
+        for style, target in extract_links(text):
             name = Path(target).name
             if "." in name and not name.endswith(".md"):
                 continue  # 附件链接，不强制解析
-            if target not in cache:
-                cache[target] = len(resolve(root, target))
-            if not cache[target]:
-                errors.append(f"断链：{path.relative_to(root).as_posix()} -> [[{target}]]")
+            if style == "[...](...)":
+                # 标准 Markdown 相对链接：相对当前文件所在目录解析
+                candidate = (path.parent / target).resolve()
+                if not candidate.is_file():
+                    errors.append(
+                        f"断链：{path.relative_to(root).as_posix()} -> ({target})"
+                    )
+                continue
+            if not resolve(root, target):
+                errors.append(
+                    f"断链：{path.relative_to(root).as_posix()} -> [[{target}]]"
+                )
     return errors
 
 

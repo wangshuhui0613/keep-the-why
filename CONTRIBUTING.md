@@ -7,7 +7,7 @@
 先确认你用的是最新版本，然后跑一遍体检：
 
 ```bash
-python3 tools/vault_health_check.py --root .
+python tools/vault_health_check.py --root .
 ```
 
 如果体检报错，把输出一起贴到 issue 里。
@@ -48,7 +48,7 @@ python3 tools/vault_health_check.py --root .
 改 `docs/_shell.html`，然后：
 
 ```bash
-python3 tools/build_demo.py
+python tools/build_demo.py
 ```
 
 它会重新注入构建指令并同时产出两个版本，保证内容和离线版、CDN 版不会走散。

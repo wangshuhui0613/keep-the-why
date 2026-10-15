@@ -6,7 +6,10 @@ tags: [知识库, 模板, Obsidian, 知识管理]
 
 # 个人知识库开源模板
 
-![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)
+[![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](LICENSE)
+[![GitHub stars](https://img.shields.io/github/stars/wangshuhui0613/personal-kb-template?style=flat)](https://github.com/wangshuhui0613/personal-kb-template/stargazers)
+[![健康检查](https://github.com/wangshuhui0613/personal-kb-template/actions/workflows/health-check.yml/badge.svg)](https://github.com/wangshuhui0613/personal-kb-template/actions/workflows/health-check.yml)
+[![在线演示](https://img.shields.io/badge/演示-在线预览-blue)](https://wangshuhui0613.github.io/personal-kb-template/)
 
 一套用于管理**规划、行动、证据、复盘和经验**的个人知识库结构。
 
@@ -16,10 +19,10 @@ tags: [知识库, 模板, Obsidian, 知识管理]
 
 | 问题 | 从哪里找答案 |
 |---|---|
-| 我现在应该做什么？ | [[01-个人/00-行动与跟进/行动总览]] |
-| 我以前做过什么，当时为什么这样判断？ | [[02-工作经历/00_总览/项目索引]]、[[02-工作经历/01_决策日志/决策日志]] |
-| 哪些经验以后可以直接复用？ | [[02-工作经历/03_经验卡片/经验卡片索引]] |
-| 我现在处在什么阶段，下一步去哪？ | [[03-复盘与规划/复盘与规划]] |
+| 我现在应该做什么？ | [行动总览](01-个人/00-行动与跟进/行动总览.md) |
+| 我以前做过什么，当时为什么这样判断？ | [项目索引](02-工作经历/00_总览/项目索引.md)、[决策日志](02-工作经历/01_决策日志/决策日志.md) |
+| 哪些经验以后可以直接复用？ | [经验卡片索引](02-工作经历/03_经验卡片/经验卡片索引.md) |
+| 我现在处在什么阶段，下一步去哪？ | [复盘与规划](03-复盘与规划/复盘与规划.md) |
 
 让这四个问题转起来的是一条闭环：
 
@@ -89,7 +92,7 @@ git clone https://github.com/wangshuhui0613/personal-kb-template.git 我的知�
 2. 在 `01-个人/00-行动与跟进/行动总览.md` 写下本周能推进它的**三个**行动
 3. 删掉里面所有标注为示例的内容
 
-> 更多上手细节见 [[使用说明]]。
+> 更多上手细节见 [使用说明](使用说明.md)。
 
 ### 方式二：装成 Agent Skill，让 AI 帮你建和维护
 
@@ -106,7 +109,7 @@ git clone https://github.com/wangshuhui0613/personal-kb-template.git 我的知�
 
 ### 方式三：不想装 Skill，只复制一段指令
 
-打开 [[prompts/一键构建]]，把里面从「开始」到「结束」的整段复制给你的 AI 助手，它会一步步帮你把库建好并给出验证结果。
+打开 [一键构建](prompts/一键构建.md)，把里面从「开始」到「结束」的整段复制给你的 AI 助手，它会一步步帮你把库建好并给出验证结果。
 
 ---
 
@@ -124,9 +127,9 @@ git clone https://github.com/wangshuhui0613/personal-kb-template.git 我的知�
 
 | 你想记的是 | 写到哪 |
 |---|---|
-| 需要跨天跟进的事 | [[01-个人/00-行动与跟进/行动总览]] |
-| 方向、规划 | [[01-个人/规划总览]] 或 `01-个人/` 对应子目录 |
-| 项目整体背景 | [[02-工作经历/00_总览/项目索引]] |
+| 需要跨天跟进的事 | [行动总览](01-个人/00-行动与跟进/行动总览.md) |
+| 方向、规划 | [规划总览](01-个人/规划总览.md) 或 `01-个人/` 对应子目录 |
+| 项目整体背景 | [项目索引](02-工作经历/00_总览/项目索引.md) |
 | 一次有取舍的选择 | `02-工作经历/01_决策日志/` |
 | 一个能复用的结论 | `02-工作经历/03_经验卡片/` |
 | 今天真实发生的事 | `03-复盘与规划/01-每日记录/` |
@@ -142,7 +145,7 @@ git clone https://github.com/wangshuhui0613/personal-kb-template.git 我的知�
 一条行动「现在怎么样了」只写在行动总览，其他地方一律用链接引用。两份状态副本，一周内必然打架。
 
 **② 行动有编号和字段。**
-前缀区分性质：`A` 自己能动手、`W` 在等别人、`J` 等你拍板、`H` 暂缓、`E` 历史遗留。每条要写清下一步动作、状态、状态原因、来源、归属、截止、复核时间、完成定义、完成证据。完整字段说明见 [[01-个人/00-行动与跟进/行动总览]]。
+前缀区分性质：`A` 自己能动手、`W` 在等别人、`J` 等你拍板、`H` 暂缓、`E` 历史遗留。每条要写清下一步动作、状态、状态原因、来源、归属、截止、复核时间、完成定义、完成证据。完整字段说明见 [行动总览](01-个人/00-行动与跟进/行动总览.md)。
 
 **③ 完成分四层。**
 
@@ -158,12 +161,12 @@ git clone https://github.com/wangshuhui0613/personal-kb-template.git 我的知�
 **⑤ 原始层只读。**
 `04_日报素材`、`05_文档原文`、`07_附件` 是事实之源，不改写。要提炼就把结论写到上层去，否则上层所有结论的出处都会断掉，而且你不会发现。
 
-完整规则见 [[AGENTS]]。
+完整规则见 [AGENTS](AGENTS.md)。
 
 ## 体检
 
 ```bash
-python3 tools/vault_health_check.py --root .
+python tools/vault_health_check.py --root .
 ```
 
 检查入口文件是否齐全、双链有没有断、行动表的字段和状态是否合法。**只读不写**，退出码 1 表示有问题。
@@ -187,11 +190,11 @@ rm -rf prompts skill tools docs .github CONTRIBUTING.md AGENTS.md
 
 ## 多台电脑 / 多个助手
 
-需要时看 [[prompts/可选升级-多设备与双助手]]。单机使用完全不需要配。
+需要时看 [可选升级-多设备与双助手](prompts/可选升级-多设备与双助手.md)。单机使用完全不需要配。
 
 ## 贡献
 
-看 [[CONTRIBUTING]]。最有价值的反馈是「你用的时候哪里卡住了」。
+看 [CONTRIBUTING](CONTRIBUTING.md)。最有价值的反馈是「你用的时候哪里卡住了」。
 
 ## 许可
 
