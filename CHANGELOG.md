@@ -14,10 +14,20 @@
 - README 新增：目录导航、常见问题（FAQ）、「什么情况别用」反向声明、「对 AI 说什么→发生什么」命令速查表
 - README 隐私承诺前置到前 20 行
 - 仓库设为 GitHub Template repository，topics 扩充到 18 个，homepage 指向在线演示页
+- `commands/` 四个命名斜杠命令（`日报` / `周复盘` / `记一下` / `体检`）：装一次 Skill 后每天打几个字就能触发对应流程，不用复述长指令
+- `prompts/可选升级-MCP与CLI.md`：官方 CLI 与 MCP server 两条升级路线，附「五条不变规矩」；不装也能用，立零依赖
+- `03-复盘与规划/99-模板/` 新增周复盘、月复盘两个模板（Obsidian 插入菜单可用的模板达 5 个）
+- `assets/banner.png`（1280×640）社交封面图；`assets/screenshots/` 截图目录与命名/脱敏规范
 
 ### 变更
 
 - 使用说明「写四段」改为模板实际五段并列段名，补上「待确认」段的跨天流转规则
+- **链接规则三处口径统一**：`AGENTS.md`、`rules.md`、`一键构建.md` 与 SKILL.md 实际行为对齐为「双链一律用完整相对路径的标准 Markdown 链接，带 `.md` 后缀」——此前文档要求不带后缀、实际文件与体检脚本却要求带，按旧文档建库反而报断链
+- `SKILL.md` description 触发词扩充（体检 / 查重 / 整理旧库），新增「命名斜杠命令」表
+- README 方式二补 npx 交互菜单预告与非交互参数（`--agent '*' -y`）；「三个 0x- 板块」黑话改全称；新增「模板更新了怎么办」与「截图」两节
+- `README.en.md` 同步：Screenshots / Template Updates / Multiple Computers 三节，四口令表，npx 交互提示，链接中文文档统一标 (in Chinese)
+- `rules.md` 新增「时效三分」一节（长效 / 时效 / 指针），方法来源致谢 OKM
+- `tools/vault_health_check.py` 新增 INFO 行（入口被引用 9/11、行动被提及 2/3）：空模板里「结构存在但没被用」只警告不计 FAIL
 
 ### 修复
 
@@ -26,6 +36,9 @@
 - `tools/vault_health_check.py` 新增 CHECK 摘要行（入口文件 / 链接 / 行动字段 / 敏感信息），实跑输出与 demo.gif 第 5 屏一致；GIF 数字随体检结果重建，不手改
 - 纯净库删除命令补 Windows PowerShell 版，并说明删除后链接失效属正常
 - CONTRIBUTING 补「提 PR 注意行尾符」与「GIF 数字同步规则」两条
+- `EXAMPLES.md` 代码块内被误当成真链接的示例路径改为纯文本；`使用说明.md` 修正脚本错路径、补日期占位符提示、模板清单与事实一致
+- `demo.gif` 第 5 屏数字与实跑对齐（111/111、32/32、INFO 行），结尾屏补 Windows 用户指引
+- `README.en.md` FAQ 补「库内容中文能否用英文」条
 
 ## [2026-10-15] 首个公开版本 + 生态对齐
 

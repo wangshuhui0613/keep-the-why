@@ -10,6 +10,8 @@ What it catches:
     former; both must point at a real file)
   * action rows with missing fields, illegal states, or closed without evidence
   * credentials and other sensitive values that should never have been written
+  * entry pages and actions nobody references (warning only — structure that
+    exists but is never used is the earliest sign of ledger rot)
 
 It never modifies anything. Exit code 1 means at least one problem was found.
 """
@@ -164,13 +166,18 @@ def parse_tables(text: str):
     return rows
 
 
-def check_actions(root: Path) -> tuple[list[str], int]:
-    """返回 (问题列表, 行动表行数)。"""
+def action_rows(root: Path) -> list[dict]:
+    """解析行动总览里的十字段行（不含表头与代码围栏里的示例）。"""
     path = root / "01-个人/00-行动与跟进/行动总览.md"
     if not path.is_file():
-        return [], 0
-    rows = [r for r in parse_tables(path.read_text(encoding="utf-8", errors="replace"))
+        return []
+    return [r for r in parse_tables(path.read_text(encoding="utf-8", errors="replace"))
             if ACTION_ID_RE.fullmatch(r.get("编号", ""))]
+
+
+def check_actions(root: Path) -> tuple[list[str], int]:
+    """返回 (问题列表, 行动表行数)。"""
+    rows = action_rows(root)
     if not rows:
         return ["行动总览里找不到可解析的十字段行动表"], 0
     errors, seen = [], set()
@@ -221,6 +228,33 @@ def check_sensitive(root: Path) -> tuple[list[str], int, int]:
     return errors, scanned, dirty
 
 
+def check_usage(root: Path) -> tuple[int, int, int, int]:
+    """返回 (被引用的入口数, 入口总数, 被提及的行动数, 行动总数)。
+
+    结构正确不代表结构在被用：没人引用的入口、没人提的行动，
+    是账本腐化的最早信号（思路对标 second-brain-os 的 orphan rate）。
+    本检查只警告，不计入 FAIL。
+    """
+    texts: dict[str, str] = {}
+    for path in library_files(root):
+        if path.suffix.lower() == ".md":
+            texts[path.relative_to(root).as_posix()] = path.read_text(
+                encoding="utf-8", errors="replace"
+            )
+    dashboard = "01-个人/00-行动与跟进/行动总览.md"
+    mentions = "\n".join(text for rel, text in texts.items() if rel != dashboard)
+    entries = [rel for rel in REQUIRED_FILES if (root / rel).is_file()]
+    entries_hit = sum(
+        1
+        for rel in entries
+        if any(rel in text or f"({rel})" in text or f"[[{Path(rel).stem}]]" in text
+               for other, text in texts.items() if other != rel)
+    )
+    rows = action_rows(root)
+    actions_hit = sum(1 for row in rows if row["编号"] in mentions)
+    return entries_hit, len(entries), actions_hit, len(rows)
+
+
 def measure(root: Path) -> dict[str, int]:
     def count(rel: str, predicate) -> int:
         directory = root / rel
@@ -267,6 +301,12 @@ def main() -> int:
     checks = run(root)
     for name, summary, _errors in checks:
         print(f"CHECK: {name} ({summary})")
+
+    entries_hit, entries_total, actions_hit, actions_total = check_usage(root)
+    print(
+        f"INFO: 入口被引用 ({entries_hit}/{entries_total})，"
+        f"行动被提及 ({actions_hit}/{actions_total}) —— 仅警告，不计入结果"
+    )
 
     all_errors = [e for _name, _summary, errs in checks for e in errs]
     if all_errors:
