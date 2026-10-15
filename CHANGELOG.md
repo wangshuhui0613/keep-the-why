@@ -2,6 +2,31 @@
 
 格式遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)。日期即「结构版本」。
 
+## [2026-10-16] 英文版 / 示例 / 插件市场 / 真问题修复
+
+### 新增
+
+- `README.en.md` 英文版，中文 README 顶部加语言切换
+- `EXAMPLES.md`：五篇填好的脱敏示例（日报 / 行动 / 决策 / 经验卡片 / 周复盘）+ 反例对照表
+- `Windows使用指南.md`：Windows 特有的是下载方式、Python 安装两个坑（PATH 与商店版「替身」）、纯净库删除命令
+- `.claude-plugin/marketplace.json`：上架 Claude Code 插件市场，`claude plugin marketplace add wangshuhui0613/personal-kb-template` 后可按名安装
+- `SKILL.md`（v1.2）新增 `/adopt` 老库迁移流程（迁移是加一层，不是洗一遍）与「按角色调整侧重」表；搭建时多问一个角色问题
+- README 新增：目录导航、常见问题（FAQ）、「什么情况别用」反向声明、「对 AI 说什么→发生什么」命令速查表
+- README 隐私承诺前置到前 20 行
+- 仓库设为 GitHub Template repository，topics 扩充到 18 个，homepage 指向在线演示页
+
+### 变更
+
+- 使用说明「写四段」改为模板实际五段并列段名，补上「待确认」段的跨天流转规则
+
+### 修复
+
+- 8 个模板（`99-模板/` 3 个 + `skills/personal-kb/assets/templates/` 5 个）全部移除 frontmatter——修复 Obsidian 插入模板时把「title: 日报模板 / tags: [模板, 日报]」原样复制进每一篇新日记的污染
+- `tools/health-check.cmd`：先检测 Python，缺失时明确提示「体检是可选步骤，不影响使用」并以退出码 2 退出，与真问题（1）区分
+- `tools/vault_health_check.py` 新增 CHECK 摘要行（入口文件 / 链接 / 行动字段 / 敏感信息），实跑输出与 demo.gif 第 5 屏一致；GIF 数字随体检结果重建，不手改
+- 纯净库删除命令补 Windows PowerShell 版，并说明删除后链接失效属正常
+- CONTRIBUTING 补「提 PR 注意行尾符」与「GIF 数字同步规则」两条
+
 ## [2026-10-15] 首个公开版本 + 生态对齐
 
 ### 新增
