@@ -125,10 +125,18 @@ npx skills add wangshuhui0613/personal-kb-template
 
 `skills` is the standard install command of the Agent Skills ecosystem, supporting Claude Code, Codex, Cursor and 75+ agents.
 
+Claude Code users can also use the plugin marketplace (either way works):
+
+```bash
+claude plugin marketplace add wangshuhui0613/personal-kb-template
+claude plugin install personal-kb@personal-kb-template
+```
+
 Prefer not to use npx? Copy the whole `skills/personal-kb/` directory into your agent's skills directory:
 
 | Platform | Project-level | Global |
 |---|---|---|
+| Generic Agent Skills convention (where `npx skills add` installs) | `.agents/skills/` | `~/.agents/skills/` |
 | Claude Code | `.claude/skills/` | `~/.claude/skills/` |
 | Cursor | `.cursor/skills/` | `~/.cursor/skills/` |
 | Codex | `.codex/skills/` | `~/.codex/skills/` |

@@ -1,0 +1,13 @@
+{
+  "name": "personal-kb",
+  "version": "1.2.0",
+  "description": "从零搭建或日常维护一套个人知识库 Obsidian 库：三大板块（个人 / 工作经历 / 复盘与规划）、跨天行动唯一事实源、决策日志、经验卡片、日报与周期复盘，以及配套的 AI 写入规则。Build or maintain a personal knowledge base (second brain) Obsidian vault with an action ledger at its core.",
+  "author": {
+    "name": "wangshuhui",
+    "url": "https://wangshuhui.com"
+  },
+  "license": "MIT",
+  "repository": "https://github.com/wangshuhui0613/personal-kb-template",
+  "homepage": "https://wangshuhui0613.github.io/personal-kb-template/",
+  "keywords": ["obsidian", "knowledge-base", "pkm", "second-brain", "personal-kb", "action-ledger"]
+}

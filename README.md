@@ -134,10 +134,18 @@ npx skills add wangshuhui0613/personal-kb-template
 
 `skills` 是 Agent Skills 生态的标准安装命令，支持 Claude Code、Codex、Cursor 等 75+ 个 Agent。
 
+Claude Code 用户也可以走插件市场（二选一）：
+
+```bash
+claude plugin marketplace add wangshuhui0613/personal-kb-template
+claude plugin install personal-kb@personal-kb-template
+```
+
 不想用 npx，也可以把 `skills/personal-kb/` 整个目录复制到你的 Agent 的 skills 目录：
 
 | 平台 | 项目级 | 全局 |
 |---|---|---|
+| 通用 Agent Skills 约定（`npx skills add` 默认装这里） | `.agents/skills/` | `~/.agents/skills/` |
 | Claude Code | `.claude/skills/` | `~/.claude/skills/` |
 | Cursor | `.cursor/skills/` | `~/.cursor/skills/` |
 | Codex | `.codex/skills/` | `~/.codex/skills/` |
