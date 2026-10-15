@@ -1,6 +1,6 @@
 ---
 name: personal-kb
-description: 从零搭建或日常维护一套个人知识库 Obsidian 库：三大板块（个人 / 工作经历 / 复盘与规划）、跨天行动唯一事实源、决策日志、经验卡片、日报与周期复盘，以及配套的 AI 写入规则。Use when the user asks to build a personal knowledge base, second brain, PKM vault, 知识库模板, Obsidian vault, 个人工作系统，or says 帮我记一下 / 今天做了什么 / 这周复盘 / 这个决定为什么这么选 / 把这段对话沉淀下来 / 迁移我的旧库 / /adopt.
+description: 从零搭建或日常维护一套个人知识库 Obsidian 库：三大板块（个人 / 工作经历 / 复盘与规划）、跨天行动唯一事实源、决策日志、经验卡片、日报与周期复盘，以及配套的 AI 写入规则。Use when the user asks to build a personal knowledge base, second brain, PKM vault, 知识库模板, Obsidian vault, 个人工作系统，or says 帮我记一下 / 今天做了什么 / 这周复盘 / 这个决定为什么这么选 / 把这段对话沉淀下来 / 体检一下我的知识库 / 查一下有没有重复 / 整理我的旧库 / 迁移我的旧库 / /adopt.
 license: MIT
 metadata:
   author: wangshuhui.com
@@ -106,6 +106,17 @@ metadata:
 - `references/build-brief.md` —— 10 个核心入口文件的内容合同
 - `assets/skeleton.txt` —— 目录骨架清单
 - `assets/templates/` —— 日报、周复盘、月复盘、决策、经验卡片五个模板
+
+## 命名斜杠命令
+
+Claude Code 插件方式安装后，有四个现成口令（命令定义在仓库 `commands/` 目录，可自行增改）：
+
+| 命令 | 做什么 |
+|---|---|
+| `/日报` | 写今天的日报（五段：今天完成、证据、新判断、待确认、下一步） |
+| `/周复盘` | 先读本周全部日报，只从日报提炼周复盘 |
+| `/记一下` | 把一件事记进行动总览：查重 → 分类 → 写齐十字段 |
+| `/体检` | 跑体检脚本并解读结果，异常波动要核实 |
 
 ## 自检
 
