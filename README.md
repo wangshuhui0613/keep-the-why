@@ -6,6 +6,8 @@ tags: [知识库, 模板, Obsidian, 知识管理]
 
 # 个人知识库开源模板
 
+[English](README.en.md) | 中文
+
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](LICENSE)
 [![GitHub stars](https://img.shields.io/github/stars/wangshuhui0613/personal-kb-template?style=flat)](https://github.com/wangshuhui0613/personal-kb-template/stargazers)
 [![健康检查](https://github.com/wangshuhui0613/personal-kb-template/actions/workflows/health-check.yml/badge.svg)](https://github.com/wangshuhui0613/personal-kb-template/actions/workflows/health-check.yml)
@@ -15,9 +17,31 @@ tags: [知识库, 模板, Obsidian, 知识管理]
 
 它不是收藏夹。收藏夹解决的是“存”，这套模板解决的是“**用**”——让半年后的你还能回答出：当时为什么这么决定。
 
+> **隐私承诺：所有数据只在你自己的电脑上。** 这个仓库不收集、不上传、不同步任何东西——clone 下来就是一堆纯粹的本地文件，断网也能用。
+
 这套方法有个名字，叫**行动账本（Action Ledger）**：知识库按账本管——一个状态入口、五类科目、四层入账进度、三类凭证。展开见下文「几个关键设计」。
 
 ![新用户第一天：clone → 打开 → 写日报 → 体检](docs/demo.gif)
+
+## 目录
+
+- [它回答四个问题](#它回答四个问题)
+- [目录结构](#目录结构)
+- [快速开始](#快速开始)
+- [第一天，只做三件事](#第一天只做三件事)
+- [日常怎么用](#日常怎么用)
+- [谁适合用](#谁适合用)
+- [几个关键设计](#几个关键设计)
+- [体检](#体检)
+- [在线预览](#在线预览)
+- [只想要纯粹的 Obsidian 库？](#只想要纯粹的-obsidian-库)
+- [多台电脑 / 多个助手](#多台电脑--多个助手)
+- [老库迁移（/adopt）](#老库迁移adopt)
+- [什么情况别用](#什么情况别用)
+- [常见问题（FAQ）](#常见问题faq)
+- [方法来源与致谢](#方法来源与致谢)
+- [贡献](#贡献)
+- [许可](#许可)
 
 ## 它回答四个问题
 
@@ -78,6 +102,8 @@ README.md / 使用说明.md / CONTRIBUTING.md / LICENSE
 
 **要求**：本地有 [Obsidian](https://obsidian.md)（免费）。不需要任何社区插件，原生功能即可运行。
 
+> 体检脚本需要 Python，但那是**可选步骤**——没装 Python 只是不能跑体检，库照常使用、照常维护。
+
 ### 方式一：clone 下来直接用
 
 ```bash
@@ -96,7 +122,7 @@ git clone https://github.com/wangshuhui0613/personal-kb-template.git 我的知�
 2. 在 `01-个人/00-行动与跟进/行动总览.md` 写下本周能推进它的**三个**行动
 3. 删掉里面所有标注为示例的内容
 
-> 更多上手细节见 [使用说明](使用说明.md)。
+> 更多上手细节见 [使用说明](使用说明.md)；不知道写到什么密度，看 [EXAMPLES](EXAMPLES.md) 里五篇填好的脱敏示例。
 
 ### 方式二：装成 Agent Skill，让 AI 帮你建和维护
 
@@ -159,6 +185,21 @@ npx skills add wangshuhui0613/personal-kb-template
 
 **节奏**：每天下班前五分钟写日报；周末从本周日报提炼周复盘；月末从周复盘提炼月复盘。每一层只能从下一级提炼，**不要凭记忆重写**。
 
+### 装了 Skill 之后：说人话就行
+
+对 AI 说的话 → 实际发生的事：
+
+| 你说 | 发生什么 |
+|---|---|
+| 「帮我记一下：今天把 A 项目方案改了，下一步约技术评审」 | 写入当天日报（今天完成 + 下一步）；需要跨天跟的，自动进行动总览开编号 |
+| 「把『约技术评审』进行动总览，编号 A-002」 | 新建一条行动，十个字段按规范补全，状态和截止时间写清 |
+| 「这个决策记一下：当时只有两个供应商报价，选了贵的那个……」 | 写入决策日志，带背景、备选、当时约束、放弃原因 |
+| 「存条经验：改需求先看数据再看感觉」 | 先全库查重，再写经验卡片（结论、适用条件、限制或反例） |
+| 「帮我写本周周复盘」 | 先读本周全部日记，只从日报提炼，不凭记忆补写 |
+| 「体检一下」 | 跑 `tools/vault_health_check.py`，报告断链、字段问题、敏感信息 |
+
+没装 Skill 也完全能用——上面每件事手动做一遍就是，Skill 只是替你记住「该写到哪、要写哪些字段」。
+
 ## 谁适合用
 
 同一个结构，不同人的用法：
@@ -211,9 +252,11 @@ npx skills add wangshuhui0613/personal-kb-template
 python tools/vault_health_check.py --root .
 ```
 
-Windows 用户也可以直接双击 `tools/health-check.cmd`。
+Windows 用户也可以直接双击 `tools/health-check.cmd`。Windows 专属细节（Python 安装的两个坑、商店版“替身”、纯净库删除命令）见 [Windows 使用指南](Windows使用指南.md)。
 
-检查入口文件是否齐全、链接有没有断、行动表的字段和状态是否合法。**只读不写**，退出码 1 表示有问题。
+检查入口文件是否齐全、链接有没有断、行动表的字段和状态是否合法。**只读不写**。
+
+退出码含义：`0` 没问题；`1` 有问题（看上面的列表）；`2` 没检测到 Python（体检跳过，不影响使用）。
 
 ## 在线预览
 
@@ -226,15 +269,64 @@ Windows 用户也可以直接双击 `tools/health-check.cmd`。
 
 仓库里除了三个 `0x-` 板块，其余（`prompts/`、`skills/`、`tools/`、`docs/`、根目录几个 `.md`）都是给 AI 和展示用的。如果你只想要干净的笔记库，clone 之后跑一行：
 
+macOS / Linux：
+
 ```bash
 rm -rf prompts skills tools docs .github CONTRIBUTING.md AGENTS.md
 ```
 
+Windows PowerShell：
+
+```powershell
+Remove-Item -Recurse -Force prompts, skills, tools, docs, .github, CONTRIBUTING.md, AGENTS.md
+```
+
 保留 README、使用说明、LICENSE 和三个板块即可。
+
+> 删掉之后，README、使用说明和 AGENTS.md 里指向这些目录的链接会失效——这**是正常的**，不影响笔记库本身使用。如果你之后想恢复，重新 clone 一份即可。
 
 ## 多台电脑 / 多个助手
 
 需要时看 [可选升级-多设备与双助手](prompts/可选升级-多设备与双助手.md)。单机使用完全不需要配。
+
+## 老库迁移（/adopt）
+
+已经有一个用了很久的 Obsidian 库，不想推倒重来？对 AI 说「**/adopt**」或「帮我按这套结构迁移我的旧库」，它会按流程来：
+
+1. 先把旧库整体当**只读素材**（对应 `02-工作经历/04_日报素材/`），不拆不改
+2. 扫描出现有结构，和你一起确认哪些目录对应哪个板块
+3. 只把**跨天还在跟的事**挑出来进行动总览开编号，其余留在原处
+4. 新写的日记、复盘一律用新结构，旧的慢慢淡出
+
+核心原则：**迁移是加一层，不是洗一遍**。旧内容原样保留，新结构只承接“以后还要用”的部分。
+
+## 什么情况别用
+
+这套模板解决的是一个具体问题——**让半年后的你复原今天的判断**。以下情况它不是答案：
+
+| 你想要的是 | 更合适的工具 |
+|---|---|
+| 收藏夹 / 书签管理 | Pinboard、Raindrop 这类专门工具 |
+| 团队协作、权限、评论 | Notion、Confluence |
+| 数据库、看板、公式计算 | 专门的数据库或项目管理工具 |
+| 装上就自动变整洁 | 不存在这种工具——这个库的价值来自你每天 5 分钟的真实记录 |
+
+## 常见问题（FAQ）
+
+**必须用 Obsidian 吗？**
+不是必须，但强烈建议。这套结构本质是一堆标准 Markdown 文件，任何编辑器都能读能改；Obsidian 只是把「插入模板、日历建日记、双链跳转」变成开箱即用。装不装 Skill 也不绑定 Obsidian。
+
+**数据存在哪，会上传吗？**
+只在你自己的电脑上。这个仓库没有任何网络请求、没有遥测、没有账号体系——clone 下来就是纯粹的本地文件，断网也能完整使用。
+
+**不会 Git，能用吗？**
+能。Git 只是下载方式之一：在 GitHub 页面点 Code → Download ZIP 一样拿到全部文件。多设备同步是可选升级，单机使用完全不需要配。
+
+**体检报错了怎么办？**
+看报错类型对症下药：断链——补上缺失的文件或改正链接；字段缺失——去行动总览补全十字段；敏感信息——立刻删除该行。退出码 `2` 表示没检测到 Python，那是可选步骤，不影响使用。
+
+**适合团队用吗？**
+不适合。这是个人知识库，整个设计的前提是「只有一个读者——未来的你自己」。团队场景请用 Notion 之类的协作工具。
 
 ## 方法来源与致谢
 

@@ -35,6 +35,14 @@ python tools/vault_health_check.py --root .
 - **统计数字不要写死。** 任何"共 X 篇"这类数字，要么不写，要么让脚本生成。写死的数字一定会腐化。
 - **本机状态不进版本库。** `.obsidian/workspace.json` 等文件不要提交。
 
+## 提 PR 时注意行尾符
+
+Windows 的 Git 默认会把 LF 转成 CRLF，提交后整个文件都会显示为"重写"，review 时没法看真实改动。本仓库已通过 `.gitattributes` 统一为 LF，你本地再配置一次即可：
+
+```bash
+git config --global core.autocrlf false
+```
+
 ## 目录编号约定
 
 `01-个人` 和 `03-复盘与规划` 用连字符（`00-行动与跟进`），`02-工作经历` 用下划线（`00_总览`）。
@@ -52,3 +60,5 @@ python tools/build_demo.py
 ```
 
 它会重新注入构建指令并同时产出两个版本，保证内容和离线版、CDN 版不会走散。
+
+GIF 的第 5 屏（体检画面）里的数字是**真实跑一遍体检的结果**。新增或删除任何 `.md` 文件后，重跑 `python tools/vault_health_check.py --root .`，把新数字同步进 `docs/_gif-scenes.html` 第 5 屏，再用 `tools/gif_shots.js` + `tools/build_gif.py` 重建 GIF。**不要手改 GIF 里的数字**——手改的一定会腐化。

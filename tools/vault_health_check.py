@@ -118,8 +118,9 @@ def check_required(root: Path) -> list[str]:
     return [f"缺少入口文件：{rel}" for rel in REQUIRED_FILES if not (root / rel).is_file()]
 
 
-def check_links(root: Path) -> list[str]:
-    errors = []
+def check_links(root: Path) -> tuple[list[str], int]:
+    """返回 (问题列表, 实际校验的链接总数)。"""
+    errors, total = [], 0
     for path in library_files(root):
         if path.suffix.lower() != ".md":
             continue
@@ -128,6 +129,7 @@ def check_links(root: Path) -> list[str]:
             name = Path(target).name
             if "." in name and not name.endswith(".md"):
                 continue  # 附件链接，不强制解析
+            total += 1
             if style == "[...](...)":
                 # 标准 Markdown 相对链接：相对当前文件所在目录解析
                 candidate = (path.parent / target).resolve()
@@ -140,7 +142,7 @@ def check_links(root: Path) -> list[str]:
                 errors.append(
                     f"断链：{path.relative_to(root).as_posix()} -> [[{target}]]"
                 )
-    return errors
+    return errors, total
 
 
 def parse_tables(text: str):
@@ -162,14 +164,15 @@ def parse_tables(text: str):
     return rows
 
 
-def check_actions(root: Path) -> list[str]:
+def check_actions(root: Path) -> tuple[list[str], int]:
+    """返回 (问题列表, 行动表行数)。"""
     path = root / "01-个人/00-行动与跟进/行动总览.md"
     if not path.is_file():
-        return []
+        return [], 0
     rows = [r for r in parse_tables(path.read_text(encoding="utf-8", errors="replace"))
             if ACTION_ID_RE.fullmatch(r.get("编号", ""))]
     if not rows:
-        return ["行动总览里找不到可解析的十字段行动表"]
+        return ["行动总览里找不到可解析的十字段行动表"], 0
     errors, seen = [], set()
     for row in rows:
         aid = row["编号"]
@@ -192,24 +195,30 @@ def check_actions(root: Path) -> list[str]:
                 errors.append(f"{aid} 已关闭但缺少完成证据")
             if not re.search(r"\d{4}-\d{2}-\d{2}", evidence):
                 errors.append(f"{aid} 已关闭但完成证据里没有日期")
-    return errors
+    return errors, len(rows)
 
 
-def check_sensitive(root: Path) -> list[str]:
-    errors = []
+def check_sensitive(root: Path) -> tuple[list[str], int, int]:
+    """返回 (问题列表, 扫描文件数, 命中文件数)。"""
+    errors, scanned, dirty = [], 0, 0
     for path in library_files(root):
         if path.suffix.lower() not in {".md", ".txt", ".yml", ".yaml", ".json"}:
             continue
         relative = path.relative_to(root).as_posix()
         if any(relative.startswith(s) for s in SENSITIVE_SKIP):
             continue
+        scanned += 1
         text = path.read_text(encoding="utf-8", errors="replace")
+        file_dirty = False
         for pattern, label in SENSITIVE_PATTERNS:
             for match in re.finditer(pattern, text):
                 line = text[: match.start()].count("\n") + 1
                 errors.append(f"疑似{label}：{relative}:{line} —— 请删除或移出库外")
+                file_dirty = True
                 break
-    return errors
+        if file_dirty:
+            dirty += 1
+    return errors, scanned, dirty
 
 
 def measure(root: Path) -> dict[str, int]:
@@ -229,12 +238,18 @@ def measure(root: Path) -> dict[str, int]:
     }
 
 
-def run(root: Path) -> list[str]:
-    errors = check_required(root)
-    errors += check_links(root)
-    errors += check_actions(root)
-    errors += check_sensitive(root)
-    return errors
+def run(root: Path) -> list[tuple[str, str, list[str]]]:
+    """返回 [(检查项, 汇总, 问题列表)]，汇总由各项实际检查结果生成。"""
+    required_errors = check_required(root)
+    link_errors, link_total = check_links(root)
+    action_errors, action_total = check_actions(root)
+    sensitive_errors, sensitive_total, sensitive_dirty = check_sensitive(root)
+    return [
+        ("入口文件齐全", f"{len(REQUIRED_FILES) - len(required_errors)}/{len(REQUIRED_FILES)}", required_errors),
+        ("链接完整", f"{link_total - len(link_errors)}/{link_total}", link_errors),
+        ("行动字段与状态合法", f"{len(action_errors)} 错误 / {action_total} 条行动", action_errors),
+        ("无敏感信息", f"{sensitive_total - sensitive_dirty}/{sensitive_total} 个文件", sensitive_errors),
+    ]
 
 
 def main() -> int:
@@ -249,11 +264,15 @@ def main() -> int:
     stats = measure(root)
     print("STATS: " + "，".join(f"{k}={v}" for k, v in stats.items()))
 
-    errors = run(root)
-    if errors:
-        for error in errors:
+    checks = run(root)
+    for name, summary, _errors in checks:
+        print(f"CHECK: {name} ({summary})")
+
+    all_errors = [e for _name, _summary, errs in checks for e in errs]
+    if all_errors:
+        for error in all_errors:
             print(error)
-        print(f"\nFAIL: {len(errors)} 项问题")
+        print(f"\nFAIL: {len(all_errors)} 项问题")
         return 1
     print("PASS: 知识库体检通过")
     return 0
