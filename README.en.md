@@ -28,7 +28,10 @@ The method has a name: **Action Ledger** — run your knowledge base like a ledg
 - [Key Designs](#key-designs)
 - [Health Check](#health-check)
 - [Live Preview](#live-preview)
+- [Screenshots](#screenshots)
 - [Just Want a Clean Vault?](#just-want-a-clean-vault)
+- [Multiple Computers / Multiple Assistants](#multiple-computers--multiple-assistants)
+- [Template Updates](#template-updates)
 - [Migrating an Existing Vault (/adopt)](#migrating-an-existing-vault-adopt)
 - [When NOT to Use This](#when-not-to-use-this)
 - [FAQ](#faq)
@@ -83,8 +86,9 @@ README.md / 使用说明.md / CONTRIBUTING.md / LICENSE
 │   ├── 02-周复盘/ 03-月复盘/ 04-季复盘/ 05-年复盘/
 │   ├── 06-规划/             mid- and long-term plans
 │   ├── 07-对话沉淀/         long-term conclusions mined from AI chats
-│   └── 99-模板/             decision, experience card, review templates
+│   └── 99-模板/             five templates: daily, weekly, monthly, decision, experience card
 │
+├── commands/       named slash commands (/日报 /周复盘 /记一下 /体检)
 ├── prompts/         build instructions for your AI
 ├── skills/         Agent Skill (installable via npx skills add)
 ├── tools/          health check script
@@ -106,7 +110,7 @@ git clone https://github.com/wangshuhui0613/personal-kb-template.git my-vault
 
 Open it in Obsidian via "Open folder as vault". Templates, daily notes, and attachment paths are **already configured**:
 
-- `Ctrl/Cmd + P` → "Insert template" → pick 日报模板 / 决策模板 / 经验卡片模板
+- `Ctrl/Cmd + P` → "Insert template" → pick one of the five templates (daily / weekly / monthly / decision / experience card)
 - Click the calendar icon on the left; today's daily note is created in `03-复盘与规划/01-每日记录/`
 - Pasted images automatically land in `02-工作经历/07_附件/`
 
@@ -125,6 +129,8 @@ npx skills add wangshuhui0613/personal-kb-template
 ```
 
 `skills` is the standard install command of the Agent Skills ecosystem, supporting Claude Code, Codex, Cursor and 75+ agents.
+
+> The install pops up a "which agents do you want to install to?" menu — when unsure, select all. For non-interactive install in scripts: `npx skills add wangshuhui0613/personal-kb-template --agent '*' -y`.
 
 Claude Code users can also use the plugin marketplace (either way works):
 
@@ -147,7 +153,7 @@ Then just say "help me set up a knowledge base", or day to day, "note this down 
 
 ### Option 3: No Skill, just copy one prompt
 
-Open [一键构建](prompts/一键构建.md), copy the whole block from "开始" to "结束" to your AI assistant, and it will build the vault step by step and give you verification results.
+Open [一键构建](prompts/一键构建.md) (in Chinese), copy the whole block from "开始" to "结束" to your AI assistant, and it will build the vault step by step and give you verification results.
 
 ## Day One: Three Things Only
 
@@ -199,6 +205,15 @@ What you say to your AI → what actually happens:
 | "Run a health check" | Runs `tools/vault_health_check.py`, reporting broken links, field problems, sensitive values |
 
 Everything above also works manually — the Skill just remembers "where it goes and which fields are required" for you.
+
+With the Claude Code plugin install, there are also four ready-made slash commands (definitions live in the repo's `commands/` directory, editable):
+
+| Command | What it does |
+|---|---|
+| `/日报` | Write today's daily note (five sections) |
+| `/周复盘` | Read all of this week's daily notes first, then extract the weekly review |
+| `/记一下` | Put something into the Action Dashboard: dedupe → classify → fill all ten fields |
+| `/体检` | Run the health check and read the results; investigate abnormal fluctuations |
 
 ## Who It's For
 
@@ -254,9 +269,9 @@ python tools/vault_health_check.py --root .
 
 Windows users can also double-click `tools/health-check.cmd`.
 
-It checks whether entry files are complete, whether links are broken, and whether action fields and states are valid. **Read-only, never writes.** Exit codes: `0` no problems; `1` problems found (see the list); `2` Python not detected (check skipped, usage unaffected).
+It checks whether entry files are complete, whether links are broken, and whether action fields and states are valid. **Read-only, never writes.** It also reports (as a warning, not a failure) which entry pages and actions nobody references — structure that exists but is never used is the earliest sign of ledger rot. Exit codes: `0` no problems; `1` problems found (see the list); `2` Python not detected (check skipped, usage unaffected).
 
-Windows-specific details (two Python install pitfalls, the Store "imposter", the clean-vault delete command) are in the [Windows Guide](Windows使用指南.md).
+Windows-specific details (two Python install pitfalls, the Store "imposter", the clean-vault delete command) are in the [Windows Guide](Windows使用指南.md) (in Chinese).
 
 ## Live Preview
 
@@ -265,25 +280,49 @@ Windows-specific details (two Python install pitfalls, the Store "imposter", the
 
 Arrow keys to page, space for next, auto-play at the bottom right.
 
+## Screenshots
+
+Real Obsidian screenshots (desensitized) live in `assets/screenshots/`. Four are planned: the Action Dashboard's ten-column table, a filled-in daily note, the Graph view, and the moment of inserting a template. Naming and size requirements are in that directory's README.
+
 ## Just Want a Clean Vault?
 
-Besides the three `0x-` sections, everything else in this repo (`prompts/`, `skills/`, `tools/`, `docs/`, and the root-level `.md` files) exists for AI and presentation. If you only want a clean notes vault, run one line after cloning:
+Besides the three numbered sections (`01-个人`, `02-工作经历`, `03-复盘与规划`), everything else in this repo (`prompts/`, `skills/`, `commands/`, `tools/`, `docs/`, and the root-level `.md` files) exists for AI and presentation. If you only want a clean notes vault, run one line after cloning:
 
 macOS / Linux:
 
 ```bash
-rm -rf prompts skills tools docs .github CONTRIBUTING.md AGENTS.md
+rm -rf prompts skills commands tools docs .github CONTRIBUTING.md AGENTS.md
 ```
 
 Windows PowerShell:
 
 ```powershell
-Remove-Item -Recurse -Force prompts, skills, tools, docs, .github, CONTRIBUTING.md, AGENTS.md
+Remove-Item -Recurse -Force prompts, skills, commands, tools, docs, .github, CONTRIBUTING.md, AGENTS.md
 ```
 
 Keep README, 使用说明, LICENSE and the three sections.
 
 > After deleting, links in README / 使用说明 / AGENTS.md pointing at those folders will break — that's **normal** and doesn't affect the vault itself. To restore, just clone again.
+
+## Multiple Computers / Multiple Assistants
+
+When you need it, see [可选升级-多设备与双助手](prompts/可选升级-多设备与双助手.md) (in Chinese). Single-machine use needs none of this.
+
+Want your AI assistant to operate Obsidian directly (instead of just writing files)? See [可选升级-MCP 与 Obsidian CLI](prompts/可选升级-MCP与CLI.md) (in Chinese) — also optional; the vault is fully usable without any external service.
+
+## Template Updates
+
+The built-in problem with clone-type templates: you don't get later structural updates. Two ways out:
+
+1. **Add an upstream remote and merge by directory** (recommended, keeps all your content):
+   ```bash
+   git remote add upstream https://github.com/wangshuhui0613/personal-kb-template.git
+   git fetch upstream
+   ```
+   Then merge only the directories you care about (usually `03-复盘与规划/99-模板/`, `skills/`, `tools/`); the three numbered sections are yours — keep them wholesale.
+2. **Re-clone and copy just the templates**: copy the new repo's `03-复盘与规划/99-模板/` files into your vault, leave everything else alone.
+
+Structural changes are always recorded in the "Changed" section of [CHANGELOG](CHANGELOG.md) — read it before updating and merge only what matches.
 
 ## Migrating an Existing Vault (/adopt)
 
@@ -311,6 +350,9 @@ This template solves one specific problem — **letting future-you reconstruct t
 
 **Do I have to use Obsidian?**
 Not strictly, but strongly recommended. The structure is a pile of standard Markdown files any editor can read and edit; Obsidian just makes "insert template, calendar daily notes, link jumping" work out of the box. Installing the Skill doesn't bind you to Obsidian either.
+
+**The vault content is in Chinese — can I use it in English (or any other language)?**
+Yes. The structure is language-agnostic: keep the numbered folders and the AGENTS.md rules, write your notes in whatever language you like. The skill's AI writes in the vault's existing language. Several linked docs (Windows Guide, build prompt) are currently Chinese-only; an English translation of those is on the roadmap.
 
 **Where is my data, does anything get uploaded?**
 Only on your own machine. This repo makes no network requests, has no telemetry, no account system — a clone is plain local files, fully usable offline.

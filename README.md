@@ -34,8 +34,10 @@ tags: [知识库, 模板, Obsidian, 知识管理]
 - [几个关键设计](#几个关键设计)
 - [体检](#体检)
 - [在线预览](#在线预览)
+- [截图](#截图)
 - [只想要纯粹的 Obsidian 库？](#只想要纯粹的-obsidian-库)
 - [多台电脑 / 多个助手](#多台电脑--多个助手)
+- [模板更新了怎么办](#模板更新了怎么办)
 - [老库迁移（/adopt）](#老库迁移adopt)
 - [什么情况别用](#什么情况别用)
 - [常见问题（FAQ）](#常见问题faq)
@@ -90,7 +92,7 @@ README.md / 使用说明.md / CONTRIBUTING.md / LICENSE
 │   ├── 02-周复盘/ 03-月复盘/ 04-季复盘/ 05-年复盘/
 │   ├── 06-规划/            中长期规划
 │   ├── 07-对话沉淀/        从 AI 对话里提炼长期结论
-│   └── 99-模板/            决策模板、经验卡片模板
+│   └── 99-模板/            日报、周复盘、月复盘、决策、经验卡片五个模板
 │
 ├── prompts/        给 AI 用的构建指令
 ├── skills/         Agent Skill（npx skills add 可装）
@@ -113,7 +115,7 @@ git clone https://github.com/wangshuhui0613/personal-kb-template.git 我的知�
 
 用 Obsidian「打开文件夹作为库」选中它。模板、日记、附件路径**已经配好**，开箱即用：
 
-- `Ctrl/Cmd + P` → 输入「插入模板」→ 选「日报模板 / 决策模板 / 经验卡片模板」
+- `Ctrl/Cmd + P` → 输入「插入模板」→ 选「日报 / 周复盘 / 月复盘 / 决策 / 经验卡片模板」
 - 点左侧日历图标，自动在 `03-复盘与规划/01-每日记录/` 建好当天的日记
 - 粘贴的图片自动进 `02-工作经历/07_附件/`
 
@@ -134,6 +136,8 @@ npx skills add wangshuhui0613/personal-kb-template
 ```
 
 `skills` 是 Agent Skills 生态的标准安装命令，支持 Claude Code、Codex、Cursor 等 75+ 个 Agent。
+
+> 安装过程会弹出「要装到哪些 Agent」的选择菜单——不确定就全选。想在脚本里非交互安装：`npx skills add wangshuhui0613/personal-kb-template --agent '*' -y`。
 
 Claude Code 用户也可以走插件市场（二选一）：
 
@@ -209,6 +213,15 @@ claude plugin install personal-kb@personal-kb-template
 
 没装 Skill 也完全能用——上面每件事手动做一遍就是，Skill 只是替你记住「该写到哪、要写哪些字段」。
 
+Claude Code 插件方式安装后，还有四个现成口令：
+
+| 口令 | 做什么 |
+|---|---|
+| `/日报` | 写今天的日报（五段结构） |
+| `/周复盘` | 先读本周全部日报，只从日报提炼 |
+| `/记一下` | 把一件事记进行动总览：查重 → 分类 → 写齐十字段 |
+| `/体检` | 跑体检脚本并解读结果，异常波动要核实 |
+
 ## 谁适合用
 
 同一个结构，不同人的用法：
@@ -274,20 +287,24 @@ Windows 用户也可以直接双击 `tools/health-check.cmd`。Windows 专属细
 
 方向键翻页，空格下一页，右下角有自动播放。
 
+## 截图
+
+Obsidian 实拍截图（脱敏）放在 `assets/screenshots/`，规划四张：行动总览十字段表格、一篇写好的日报、图谱视图、插入模板的瞬间。命名与尺寸要求见该目录下的 README。
+
 ## 只想要纯粹的 Obsidian 库？
 
-仓库里除了三个 `0x-` 板块，其余（`prompts/`、`skills/`、`tools/`、`docs/`、根目录几个 `.md`）都是给 AI 和展示用的。如果你只想要干净的笔记库，clone 之后跑一行：
+仓库里除了三个编号板块（`01-个人`、`02-工作经历`、`03-复盘与规划`），其余（`prompts/`、`skills/`、`commands/`、`tools/`、`docs/`、根目录几个 `.md`）都是给 AI 和展示用的。如果你只想要干净的笔记库，clone 之后跑一行：
 
 macOS / Linux：
 
 ```bash
-rm -rf prompts skills tools docs .github CONTRIBUTING.md AGENTS.md
+rm -rf prompts skills commands tools docs .github CONTRIBUTING.md AGENTS.md
 ```
 
 Windows PowerShell：
 
 ```powershell
-Remove-Item -Recurse -Force prompts, skills, tools, docs, .github, CONTRIBUTING.md, AGENTS.md
+Remove-Item -Recurse -Force prompts, skills, commands, tools, docs, .github, CONTRIBUTING.md, AGENTS.md
 ```
 
 保留 README、使用说明、LICENSE 和三个板块即可。
@@ -297,6 +314,22 @@ Remove-Item -Recurse -Force prompts, skills, tools, docs, .github, CONTRIBUTING.
 ## 多台电脑 / 多个助手
 
 需要时看 [可选升级-多设备与双助手](prompts/可选升级-多设备与双助手.md)。单机使用完全不需要配。
+
+想让 AI 助手直接操作 Obsidian（而不是只会写文件）？看 [可选升级-MCP 与 Obsidian CLI](prompts/可选升级-MCP与CLI.md)——同样是可选项，不用任何外部服务这个库也完整可用。
+
+## 模板更新了怎么办
+
+clone 型模板的固有问题：你拿不到后续的结构更新。两个办法：
+
+1. **加 upstream remote 按目录合并**（推荐，保留你的全部内容）：
+   ```bash
+   git remote add upstream https://github.com/wangshuhui0613/personal-kb-template.git
+   git fetch upstream
+   ```
+   然后只合并你关心的目录（通常是 `03-复盘与规划/99-模板/`、`skills/`、`tools/`），三个编号板块里的内容是你自己的，整体保留。
+2. **重新 clone 一份，只搬模板**：把新仓库 `03-复盘与规划/99-模板/` 的模板文件复制进你的库，其余不动。
+
+结构变更都会写进 [CHANGELOG](CHANGELOG.md) 的「变更」节，更新前先读它，对得上再动。
 
 ## 老库迁移（/adopt）
 
