@@ -63,7 +63,8 @@ README.md / 使用说明.md / CONTRIBUTING.md / LICENSE
 ├── prompts/        给 AI 用的构建指令
 ├── skill/          可作为 Agent Skill 安装
 ├── tools/          体检脚本
-└── docs/           在线产品演示（GitHub Pages 首页）
+├── docs/           在线产品演示（GitHub Pages 首页）
+└── .obsidian/      已配好：模板文件夹、日记格式、附件路径
 ```
 
 ## 快速开始
@@ -76,7 +77,13 @@ README.md / 使用说明.md / CONTRIBUTING.md / LICENSE
 git clone https://github.com/wangshuhui0613/personal-kb-template.git 我的知识库
 ```
 
-用 Obsidian「打开文件夹作为库」选中它，然后：
+用 Obsidian「打开文件夹作为库」选中它。模板、日记、附件路径**已经配好**，开箱即用：
+
+- `Ctrl/Cmd + P` → 输入「插入模板」→ 选「日报模板 / 决策模板 / 经验卡片模板」
+- 点左侧日历图标，自动在 `03-复盘与规划/01-每日记录/` 建好当天的日记
+- 粘贴的图片自动进 `02-工作经历/07_附件/`
+
+然后做三件事：
 
 1. 在 `01-个人/规划总览.md` 写下未来三个月最重要的**一个**方向
 2. 在 `01-个人/00-行动与跟进/行动总览.md` 写下本周能推进它的**三个**行动

@@ -96,11 +96,26 @@
 
 | 源文件 | 目标路径 |
 |---|---|
-| `日报模板.md` | `03-复盘与规划/01-每日记录/` |
+| `日报模板.md` | `03-复盘与规划/99-模板/` |
 | `周复盘模板.md` | `03-复盘与规划/02-周复盘/` |
 | `月复盘模板.md` | `03-复盘与规划/03-月复盘/` |
 | `决策模板.md` | `03-复盘与规划/99-模板/` |
 | `经验卡片模板.md` | `03-复盘与规划/99-模板/` |
+
+模板统一收口在 `03-复盘与规划/99-模板/`；`01-每日记录/` 只放每天生成的日记，不放模板文件。
+
+## Obsidian 开箱配置
+
+`.obsidian/` 四个文件必须创建（缺了它用户每次开新库都要手动配模板和日记）：
+
+| 文件 | 内容 |
+|---|---|
+| `app.json` | `{"attachmentFolderPath": "02-工作经历/07_附件", "alwaysUpdateLinks": true, "useMarkdownLinks": false, "newLinkFormat": "shortest"}` |
+| `core-plugins.json` | 核心插件 JSON 对象，`"templates": true` 与 `"daily-notes": true` 必须为 true |
+| `templates.json` | `{"folder": "03-复盘与规划/99-模板"}` |
+| `daily-notes.json` | `{"folder": "03-复盘与规划/01-每日记录", "format": "YYYY-MM-DD", "template": "03-复盘与规划/99-模板/日报模板.md"}` |
+
+注意：`.obsidian/workspace.json` 属于本机界面状态，不写入、不入 Git。
 
 ---
 
@@ -111,7 +126,8 @@
 1. 所有必需目录和文件都在，且与 `assets/skeleton.txt` 一致
 2. README 中的三个入口都能找到目标文件
 3. 所有双链的**完整相对路径**都对应一个真实存在的 Markdown 文件
-4. 脱敏示例都带有「脱敏示例」标注
+4. 示例内容都带有「示例」标注
 5. 搜索密码、令牌、验证码、私钥等字段，确认没有真实值
 6. 目标目录之外没有新增或修改文件
-7. Obsidian 已安装且能启动，打开新建目录被识别为知识库
+7. `.obsidian/` 四个文件存在，且 templates.json 与 daily-notes.json 指向的文件夹真实存在
+8. Obsidian 已安装且能启动，打开新建目录被识别为知识库
