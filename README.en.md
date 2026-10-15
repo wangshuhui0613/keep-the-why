@@ -34,6 +34,7 @@ The method has a name: **Action Ledger** — run your knowledge base like a ledg
 - [FAQ](#faq)
 - [Credits](#credits)
 - [Contributing](#contributing)
+- [Star History](#star-history)
 - [License](#license)
 
 ## Four Questions It Answers
@@ -337,6 +338,10 @@ If you know a source we missed, please point it out in [CONTRIBUTING](CONTRIBUTI
 ## Contributing
 
 See [CONTRIBUTING](CONTRIBUTING.md). The most valuable feedback is "here's where I got stuck".
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=wangshuhui0613/personal-kb-template&type=Date)](https://star-history.com/#wangshuhui0613/personal-kb-template&Date)
 
 ## License
 

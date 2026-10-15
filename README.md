@@ -41,6 +41,7 @@ tags: [知识库, 模板, Obsidian, 知识管理]
 - [常见问题（FAQ）](#常见问题faq)
 - [方法来源与致谢](#方法来源与致谢)
 - [贡献](#贡献)
+- [Star History](#star-history)
 - [许可](#许可)
 
 ## 它回答四个问题
@@ -350,6 +351,10 @@ Remove-Item -Recurse -Force prompts, skills, tools, docs, .github, CONTRIBUTING.
 ## 贡献
 
 看 [CONTRIBUTING](CONTRIBUTING.md)。最有价值的反馈是「你用的时候哪里卡住了」。
+
+## Star History
+
+[![Star History Chart](https://api.star-history.com/svg?repos=wangshuhui0613/personal-kb-template&type=Date)](https://star-history.com/#wangshuhui0613/personal-kb-template&Date)
 
 ## 许可
 
