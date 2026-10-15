@@ -7,7 +7,7 @@
 <style>
   :root{
     --bg:#06080b; --bg2:#0b0f14; --surface:#101720; --surface2:#151d27;
-    --text:#f4f7fb; --muted:#8b97a6; --line:rgba(255,255,255,.10);
+    --text:#f4f7fb; --muted:#8b97a6; --line:rgba(255,255,255,.13);
     --accent:#c8f751; --accent2:#4cc9f0; --warn:#ff7a59;
     --stage-w:1920px; --stage-h:1080px;
     --pad-x:112px; --pad-y:92px;
@@ -107,7 +107,7 @@
   .is-active .bar>i{animation:grow 1.1s cubic-bezier(.22,.61,.36,1) forwards;animation-delay:calc(var(--d,0)*1ms)}
   @keyframes grow{to{transform:scaleX(var(--w,1))}}
 
-  .pill{display:inline-block;padding:9px 20px;border-radius:99px;border:1px solid var(--line);background:rgba(255,255,255,.04);font-size:19px;font-weight:700;color:#c3ccd7}
+  .pill{display:inline-block;padding:9px 20px;border-radius:99px;border:1px solid var(--line);background:rgba(255,255,255,.04);font-size:19px;font-weight:700;color:#c3ccd7;overflow-wrap:anywhere}
   .tag{display:inline-block;padding:6px 14px;border-radius:8px;font-family:var(--mono);font-size:17px;font-weight:800;background:rgba(200,247,81,.12);color:var(--accent);border:1px solid rgba(200,247,81,.28)}
 
   .quote{
@@ -129,7 +129,7 @@
   .block .dir{font-family:var(--mono);font-size:15px;color:#5c6875;margin-top:24px}
 
   /* 流程图 */
-  .flow{display:grid;grid-template-columns:repeat(6,1fr);gap:14px;margin-top:26px}
+  .flow{display:grid;grid-template-columns:repeat(6,1fr);gap:16px;margin-top:26px}
   .step{padding:28px 22px;border-radius:16px;border-top:3px solid var(--accent);background:rgba(255,255,255,.035);position:relative}
   .step:last-child{border-top-color:var(--accent2)}
   .step .n{font-family:var(--mono);font-size:15px;font-weight:800;color:var(--accent);letter-spacing:.16em;margin-bottom:14px}
@@ -140,21 +140,29 @@
   /* 指令区 */
   .promptbox{
     margin-top:26px;border-radius:20px;border:1px solid var(--line);background:rgba(0,0,0,.45);overflow:hidden;
+    display:flex;flex-direction:column;min-height:0;position:relative;
   }
-  .promptbox header{display:flex;align-items:center;justify-content:space-between;padding:20px 28px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.03)}
+  .promptbox header{display:flex;align-items:center;justify-content:space-between;padding:20px 28px;border-bottom:1px solid var(--line);background:rgba(255,255,255,.03);flex:0 0 auto}
   .promptbox header span{font-family:var(--mono);font-size:17px;color:var(--muted)}
   .copybtn{
     padding:11px 26px;border-radius:99px;border:0;background:var(--accent);color:#0b0f14;
     font-family:var(--font);font-size:18px;font-weight:850;cursor:pointer;transition:transform .2s ease,filter .2s ease;
+    flex:0 0 auto;
   }
   .copybtn:hover{transform:translateY(-2px);filter:brightness(1.08)}
   .copybtn.ok{background:var(--accent2)}
   .promptbox pre{
-    padding:26px 30px;max-height:420px;overflow:auto;
+    padding:26px 30px 34px;max-height:540px;overflow-y:auto;flex:1 1 auto;
     font-family:var(--mono);font-size:16px;line-height:1.75;color:#b9c4d1;white-space:pre-wrap;word-break:break-word;
+    scrollbar-width:thin;scrollbar-color:rgba(200,247,81,.45) transparent;
   }
-  .promptbox pre::-webkit-scrollbar{width:8px}
-  .promptbox pre::-webkit-scrollbar-thumb{background:rgba(255,255,255,.14);border-radius:9px}
+  .promptbox pre::-webkit-scrollbar{width:10px}
+  .promptbox pre::-webkit-scrollbar-track{background:rgba(255,255,255,.04)}
+  .promptbox pre::-webkit-scrollbar-thumb{background:rgba(200,247,81,.40);border-radius:9px;border:2px solid transparent;background-clip:content-box}
+  .promptbox pre::-webkit-scrollbar-thumb:hover{background:rgba(200,247,81,.65);background-clip:content-box}
+  /* 底部渐隐：明确暗示下面还有内容，可以滚动 */
+  .promptbox .fade{position:absolute;left:0;right:0;bottom:0;height:44px;pointer-events:none;
+    background:linear-gradient(180deg,transparent,rgba(4,6,9,.92) 78%)}
 
   .steps{display:grid;grid-template-columns:repeat(3,1fr);gap:30px;margin-top:34px}
   .steptag{padding:36px 34px;border-radius:20px;border:1px solid var(--line);background:rgba(255,255,255,.03);position:relative}
@@ -162,25 +170,46 @@
   .steptag h3{font-size:30px;margin-bottom:14px}
   .steptag p{font-size:21px}
 
-  .closing{display:grid;grid-template-columns:1fr .8fr;gap:60px;align-items:end;height:100%}
+  /* 封面右侧的结构预览 */
+  .hero-side{
+    position:absolute;right:var(--pad-x);top:50%;transform:translateY(-50%);
+    width:430px;padding:34px 36px;border-radius:22px;
+    background:linear-gradient(180deg,rgba(255,255,255,.055),rgba(255,255,255,.018));
+    border:1px solid var(--line);backdrop-filter:blur(6px);
+  }
+  .hero-side .t{font-family:var(--mono);font-size:14px;letter-spacing:.2em;color:#5c6875;margin-bottom:22px;text-transform:uppercase}
+  .hero-side .row{display:flex;align-items:baseline;gap:18px;padding:15px 0;border-top:1px dashed rgba(255,255,255,.09)}
+  .hero-side .row:first-of-type{border-top:0}
+  .hero-side .dir{font-family:var(--mono);font-size:19px;font-weight:800;color:var(--accent);min-width:132px}
+  .hero-side .row:nth-of-type(2) .dir{color:var(--accent2)}
+  .hero-side .row:nth-of-type(3) .dir{color:var(--warn)}
+  .hero-side .what{font-size:20px;color:#9aa5b2;line-height:1.4}
+
+  .closing{display:grid;grid-template-columns:1fr .82fr;gap:60px;align-items:end;height:100%}
   .closing h1{font-size:96px;margin-bottom:30px}
   .closing .note{padding:28px 0 0 32px;border-left:4px solid var(--accent);font-size:25px;line-height:1.6;color:var(--muted)}
+  .entry{display:flex;flex-direction:column;gap:14px}
+  .entry .item{display:flex;gap:16px;align-items:baseline;padding:16px 20px;border-radius:14px;background:rgba(255,255,255,.035);border:1px solid var(--line)}
+  .entry .k{font-family:var(--mono);font-size:15px;font-weight:800;color:var(--accent);min-width:34px}
+  .entry .v{font-size:21px;color:#c3ccd7;line-height:1.45}
+  .entry .v small{display:block;font-size:17px;color:#7d8896;margin-top:3px}
 
-  /* ---------- 控制条 ---------- */
+  /* ---------- 控制条（挂在舞台内，随舞台一起缩放） ---------- */
   .controls{
-    position:fixed;left:50%;bottom:22px;transform:translateX(-50%);z-index:20;
-    display:flex;align-items:center;gap:16px;padding:9px 14px;border-radius:99px;
-    background:rgba(12,17,23,.92);border:1px solid rgba(255,255,255,.10);backdrop-filter:blur(18px);
+    position:absolute;left:50%;bottom:30px;transform:translateX(-50%);z-index:20;
+    display:flex;align-items:center;gap:13px;padding:7px 13px;border-radius:99px;
+    background:rgba(10,14,20,.80);border:1px solid rgba(255,255,255,.09);backdrop-filter:blur(18px);
+    box-shadow:0 18px 50px rgba(0,0,0,.45);
   }
-  .ctl{width:40px;height:40px;border-radius:50%;border:0;background:transparent;color:var(--text);cursor:pointer;display:grid;place-items:center;transition:background .2s}
+  .ctl{width:36px;height:36px;border-radius:50%;border:0;background:transparent;color:var(--text);cursor:pointer;display:grid;place-items:center;transition:background .2s}
   .ctl:hover{background:rgba(255,255,255,.09)}
   .ctl:disabled{opacity:.28;cursor:default}
-  .ctl svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
-  .play{width:auto;padding:0 20px;border-radius:99px;gap:9px;display:flex;align-items:center;font-size:15px;font-weight:800;letter-spacing:.04em}
+  .ctl svg{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
+  .play{width:auto;padding:0 18px;border-radius:99px;gap:8px;display:flex;align-items:center;font-size:14px;font-weight:800;letter-spacing:.04em}
   .play.on{background:var(--accent);color:#0b0f14}
-  .track{width:300px;height:4px;border-radius:99px;background:rgba(255,255,255,.14);overflow:hidden}
+  .track{width:230px;height:4px;border-radius:99px;background:rgba(255,255,255,.13);overflow:hidden}
   .track>i{display:block;height:100%;background:var(--accent);transform-origin:left;transform:scaleX(0);transition:transform .3s ease}
-  .counter{font-family:var(--mono);font-size:14px;color:var(--muted);min-width:74px;text-align:right;letter-spacing:.1em}
+  .counter{font-family:var(--mono);font-size:13px;color:var(--muted);min-width:70px;text-align:right;letter-spacing:.1em}
 
   @media (prefers-reduced-motion:reduce){*{animation-duration:.01ms!important;transition-duration:.01ms!important}}
   @media print{
@@ -205,6 +234,12 @@
     <p class="lead rv" style="--d:340">结论还记得，但「当时为什么这么判断」已经答不上来。<br>这套模板要解决的，就是把一段经历变成<span class="accent">可以回溯的资产</span>。</p>
     <div class="rv" style="--d:520;margin-top:52px;display:flex;gap:14px">
       <span class="pill">Obsidian 模板</span><span class="pill">可 clone</span><span class="pill">可装 Skill</span><span class="pill">MIT 开源</span>
+    </div>
+    <div class="hero-side rv" style="--d:640" aria-hidden="true">
+      <div class="t">Vault Structure</div>
+      <div class="row"><span class="dir">01-个人</span><span class="what">方向、规划与跨天行动</span></div>
+      <div class="row"><span class="dir">02-工作经历</span><span class="what">项目、决策、经验与原始资料</span></div>
+      <div class="row"><span class="dir">03-复盘与规划</span><span class="what">每日证据与周期提炼</span></div>
     </div>
   </section>
 
@@ -363,6 +398,7 @@
         <button class="copybtn" id="copyBtn">复制完整指令</button>
       </header>
       <pre id="promptText">（载入中）</pre>
+      <div class="fade" aria-hidden="true"></div>
     </div>
     <p class="lead rv" style="--d:400;margin-top:26px;font-size:27px">它会一步步检查环境、装 Obsidian、建目录、写入口文件、做验证，然后把结果报给你。<span class="accent">Git 和 GitHub 不会自动开启。</span></p>
   </section>
@@ -375,13 +411,25 @@
         <div class="kicker" style="--d:60">Open source</div>
         <h1 class="rv" style="--d:140">值得复制的不是目录，<br>是<span class="accent">你留下判断的方式</span></h1>
         <div class="rv" style="--d:400;display:flex;gap:14px;flex-wrap:wrap">
-          <span class="pill">github.com/wangshuhui0613/personal-kb-template</span>
-          <span class="pill">MIT</span><span class="pill">零插件依赖</span>
-        </div>
+          <span class="pill">wangshuhui0613/personal-kb-template</span>
+          <span class="pill">MIT</span><span class="pill">零插件依赖</span>        </div>
       </div>
-      <div class="note rv" style="--d:600">clone 下来直接用，或者装成 Skill 让 AI 帮你建。<br>两种都行，产物一模一样。</div>
+      <div class="entry rv" style="--d:560">
+        <div class="item"><span class="k">01</span><span class="v">clone 直接用<small>打开文件夹作为库，模板日记已配好</small></span></div>
+        <div class="item"><span class="k">02</span><span class="v">装成 Agent Skill<small>说一句「帮我搭个知识库」</small></span></div>
+        <div class="item"><span class="k">03</span><span class="v">复制构建指令<small>粘给任意 AI，它一步步建好</small></span></div>
+      </div>
     </div>
   </section>
+
+  <!-- 控制条挂在舞台内：随舞台一起缩放，不会在小窗口里变成巨型横条 -->
+  <div class="controls">
+    <button class="ctl" id="prev" aria-label="上一页"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
+    <button class="ctl play" id="play" aria-label="自动播放"><svg viewBox="0 0 24 24" style="width:15px;height:15px"><path d="M5 3l14 9-14 9z" fill="currentColor" stroke="none"/></svg><span id="playLabel">自动播放</span></button>
+    <button class="ctl" id="next" aria-label="下一页"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
+    <div class="track"><i id="bar"></i></div>
+    <span class="counter" id="counter">01 / 14</span>
+  </div>
 
 </div>
 
@@ -463,6 +511,11 @@
 ├── README.md
 ├── 使用说明.md
 ├── AGENTS.md
+├── .obsidian/                    ← 开箱配置，四个文件照下面的内容创建
+│   ├── app.json
+│   ├── core-plugins.json
+│   ├── templates.json
+│   └── daily-notes.json
 ├── 01-个人/
 │   ├── 00-行动与跟进/
 │   │   └── 行动总览.md
@@ -488,7 +541,6 @@
 └── 03-复盘与规划/
     ├── 复盘与规划.md
     ├── 01-每日记录/
-    │   └── 日报模板.md
     ├── 02-周复盘/
     │   └── 周复盘模板.md
     ├── 03-月复盘/
@@ -499,10 +551,20 @@
     ├── 07-对话沉淀/
     │   └── 对话沉淀说明.md
     └── 99-模板/
+        ├── 日报模板.md
         ├── 决策模板.md
         └── 经验卡片模板.md
 
 不要为了让目录看起来丰富而创建大量空笔记。除上述核心文件外，新内容在第一次真实使用时再创建。
+
+`.obsidian/` 四个文件必须按下面内容创建（这是"clone 即可用"的关键，缺了它用户每次都要手动配模板和日记）：
+
+- `app.json`：`{"attachmentFolderPath": "02-工作经历/07_附件", "alwaysUpdateLinks": true, "useMarkdownLinks": false, "newLinkFormat": "shortest"}`
+- `core-plugins.json`：启用核心插件的 JSON 对象，其中 `"templates": true` 和 `"daily-notes": true` 必须为 true，其余可沿用默认集合
+- `templates.json`：`{"folder": "03-复盘与规划/99-模板"}`
+- `daily-notes.json`：`{"folder": "03-复盘与规划/01-每日记录", "format": "YYYY-MM-DD", "template": "03-复盘与规划/99-模板/日报模板.md"}`
+
+模板统一收口在 `03-复盘与规划/99-模板/`；`01-每日记录/` 只放每天生成的日记，不放模板文件。
 
 七、阶段 4：写入核心入口文件
 
@@ -671,14 +733,6 @@ AGENTS.md 是给后续 AI 助手阅读的操作规则，至少包含：
 现在开始执行阶段 1。先检查环境；如果缺少知识库名称或保存位置，再一次只问我一个问题。
 
 【结束：个人知识库自动构建任务】</script>
-
-<div class="controls">
-  <button class="ctl" id="prev" aria-label="上一页"><svg viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg></button>
-  <button class="ctl play" id="play" aria-label="自动播放"><svg viewBox="0 0 24 24" style="width:15px;height:15px"><path d="M5 3l14 9-14 9z" fill="currentColor" stroke="none"/></svg><span id="playLabel">自动播放</span></button>
-  <button class="ctl" id="next" aria-label="下一页"><svg viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg></button>
-  <div class="track"><i id="bar"></i></div>
-  <span class="counter" id="counter">01 / 14</span>
-</div>
 
 <script>
 (function(){
