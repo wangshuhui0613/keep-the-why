@@ -13,7 +13,11 @@ tags: [知识库, 模板, Obsidian, 知识管理]
 
 一套用于管理**规划、行动、证据、复盘和经验**的个人知识库结构。
 
-它不是收藏夹。收藏夹解决的是"存"，这套模板解决的是"**用**"——让半年后的你还能回答出：当时为什么这么决定。
+它不是收藏夹。收藏夹解决的是“存”，这套模板解决的是“**用**”——让半年后的你还能回答出：当时为什么这么决定。
+
+这套方法有个名字，叫**行动账本（Action Ledger）**：知识库按账本管——一个状态入口、五类科目、四层入账进度、三类凭证。展开见下文「几个关键设计」。
+
+![新用户第一天：clone → 打开 → 写日报 → 体检](docs/demo.gif)
 
 ## 它回答四个问题
 
@@ -64,7 +68,7 @@ README.md / 使用说明.md / CONTRIBUTING.md / LICENSE
 │   └── 99-模板/            决策模板、经验卡片模板
 │
 ├── prompts/        给 AI 用的构建指令
-├── skill/          可作为 Agent Skill 安装
+├── skills/         Agent Skill（npx skills add 可装）
 ├── tools/          体检脚本
 ├── docs/           在线产品演示（GitHub Pages 首页）
 └── .obsidian/      已配好：模板文件夹、日记格式、附件路径
@@ -96,7 +100,15 @@ git clone https://github.com/wangshuhui0613/personal-kb-template.git 我的知�
 
 ### 方式二：装成 Agent Skill，让 AI 帮你建和维护
 
-把 `skill/personal-kb/` 整个目录复制到你的 Agent 的 skills 目录：
+最快一条命令（需要 Node.js）：
+
+```bash
+npx skills add wangshuhui0613/personal-kb-template
+```
+
+`skills` 是 Agent Skills 生态的标准安装命令，支持 Claude Code、Codex、Cursor 等 75+ 个 Agent。
+
+不想用 npx，也可以把 `skills/personal-kb/` 整个目录复制到你的 Agent 的 skills 目录：
 
 | 平台 | 项目级 | 全局 |
 |---|---|---|
@@ -110,6 +122,16 @@ git clone https://github.com/wangshuhui0613/personal-kb-template.git 我的知�
 ### 方式三：不想装 Skill，只复制一段指令
 
 打开 [一键构建](prompts/一键构建.md)，把里面从「开始」到「结束」的整段复制给你的 AI 助手，它会一步步帮你把库建好并给出验证结果。
+
+## 第一天，只做三件事
+
+无论你选了哪种方式，第一天只做这三件事，各花五分钟：
+
+1. **写下今天的第一篇日报。** Obsidian 里点左侧日历图标，或直接对 AI 说「帮我记一下今天做了什么」。今天真实发生的事，是这个库唯一不能伪造的原料。
+2. **把脑子里最挂着的那件事，写进行动总览。** 给它一个编号（`A-001`），写清下一步动作。从这一秒起，它有了被跟踪的资格。
+3. **跑一次体检。** `python tools/vault_health_check.py --root .`（Windows 也可以双击 `tools/health-check.cmd`），确认结构完好。
+
+做完这三件，这个库就开始为你产出了。一周之后，再回来读「日常怎么用」。
 
 ---
 
@@ -137,7 +159,27 @@ git clone https://github.com/wangshuhui0613/personal-kb-template.git 我的知�
 
 **节奏**：每天下班前五分钟写日报；周末从本周日报提炼周复盘；月末从周复盘提炼月复盘。每一层只能从下一级提炼，**不要凭记忆重写**。
 
+## 谁适合用
+
+同一个结构，不同人的用法：
+
+- **开发者 / 技术负责人**：决策日志记技术选型「当时只有哪些信息、放弃了什么」；经验卡片存踩坑结论和成立条件；用 Skill 让 AI 按同一套规范建库、记日报。
+- **产品经理 / 项目负责人**：项目索引管各项目阶段；行动总览管跨天跟进，`W`（在等别人）和 `J`（等你拍板）分开列；三类证据分开写——实施记录、业务数据、他人陈述不能互相顶替。
+- **学生 / 研究者**：日报攒过程证据，主题手册把方法沉淀成「什么条件下成立」，规划总览管长期目标，周复盘只从本周日报提炼。
+
+共同点：都在回答同一个问题——**三个月后的我，还能不能复原今天的判断？**
+
 ## 几个关键设计
+
+这套方法叫**行动账本**，因为每个设计都对应记账的一个动作：
+
+| 记账概念 | 对应设计 |
+|---|---|
+| 一本总账 | ① 当前状态只有一个入口 |
+| 科目 | ② 五类行动编号 A / W / J / H / E |
+| 入账进度 | ③ 完成分四层 |
+| 凭证 | ④ 决策记约束、经验记边界；完成证据单独存档 |
+| 原始凭证不涂改 | ⑤ 原始层只读 |
 
 这些是这套模板和普通文件夹结构的区别，建议先读一遍再用：
 
@@ -169,7 +211,9 @@ git clone https://github.com/wangshuhui0613/personal-kb-template.git 我的知�
 python tools/vault_health_check.py --root .
 ```
 
-检查入口文件是否齐全、双链有没有断、行动表的字段和状态是否合法。**只读不写**，退出码 1 表示有问题。
+Windows 用户也可以直接双击 `tools/health-check.cmd`。
+
+检查入口文件是否齐全、链接有没有断、行动表的字段和状态是否合法。**只读不写**，退出码 1 表示有问题。
 
 ## 在线预览
 
@@ -180,10 +224,10 @@ python tools/vault_health_check.py --root .
 
 ## 只想要纯粹的 Obsidian 库？
 
-仓库里除了三个 `0x-` 板块，其余（`prompts/`、`skill/`、`tools/`、`docs/`、根目录几个 `.md`）都是给 AI 和展示用的。如果你只想要干净的笔记库，clone 之后跑一行：
+仓库里除了三个 `0x-` 板块，其余（`prompts/`、`skills/`、`tools/`、`docs/`、根目录几个 `.md`）都是给 AI 和展示用的。如果你只想要干净的笔记库，clone 之后跑一行：
 
 ```bash
-rm -rf prompts skill tools docs .github CONTRIBUTING.md AGENTS.md
+rm -rf prompts skills tools docs .github CONTRIBUTING.md AGENTS.md
 ```
 
 保留 README、使用说明、LICENSE 和三个板块即可。
@@ -191,6 +235,17 @@ rm -rf prompts skill tools docs .github CONTRIBUTING.md AGENTS.md
 ## 多台电脑 / 多个助手
 
 需要时看 [可选升级-多设备与双助手](prompts/可选升级-多设备与双助手.md)。单机使用完全不需要配。
+
+## 方法来源与致谢
+
+这套结构不是从零发明的，站在这些公共讨论和工具上：
+
+- [Andrej Karpathy](https://github.com/karpathy) 的 LLM wiki 模式——「让未来的自己复用今天的判断」这个命题的公共参照
+- [kepano/obsidian-skills](https://github.com/kepano/obsidian-skills)——Agent Skills 规范在 Obsidian 场景的落地参考，本仓库 `skills/` 的组织方式受其启发
+- [Agent Skills 规范](https://agentskills.io/specification) 与 [vercel-labs/skills](https://github.com/vercel-labs/skills)——开放的 Skill 格式与 `npx skills add` 安装生态
+- 每一位提 issue、提 PR 的人
+
+有知道出处的遗漏，欢迎在 [CONTRIBUTING](CONTRIBUTING.md) 里指正。
 
 ## 贡献
 

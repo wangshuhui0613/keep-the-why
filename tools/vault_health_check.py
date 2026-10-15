@@ -70,7 +70,7 @@ SENSITIVE_PATTERNS = (
     (r"Bearer\s+[A-Za-z0-9._-]{20,}", "Bearer 令牌"),
 )
 # 这些字段出现在说明文字里是正常的（比如本文件、AGENTS.md），要跳过。
-SENSITIVE_SKIP = ("tools/", "AGENTS.md", "CONTRIBUTING.md", ".github/", "skill/")
+SENSITIVE_SKIP = ("tools/", "AGENTS.md", "CONTRIBUTING.md", ".github/", "skills/")
 
 
 def library_files(root: Path):

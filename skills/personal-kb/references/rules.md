@@ -137,7 +137,7 @@ tags: [AI 规则, AGENTS]
 - [ ] 完成状态有证据支持；
 - [ ] `.obsidian/workspace.json` 等本机界面状态**没有被暂存**（只属于这台电脑）。
 
-跑一遍体检：`python3 tools/vault_health_check.py --root .`
+跑一遍体检：`python tools/vault_health_check.py --root .`（macOS / Linux 上用 `python3`）
 
 ## 汇报口径
 

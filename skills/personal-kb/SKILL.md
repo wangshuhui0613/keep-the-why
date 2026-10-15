@@ -4,7 +4,7 @@ description: 从零搭建或日常维护一套个人知识库 Obsidian 库：三
 license: MIT
 metadata:
   author: wangshuhui.com
-  version: "1.0"
+  version: "1.1"
   repository: https://github.com/wangshuhui0613/personal-kb-template
   structure_version: "2026-10-15"
 ---
@@ -40,7 +40,7 @@ metadata:
 5. **复制模板**：把 `assets/templates/` 里的五个模板放到对应位置。
 6. **写 10 个核心入口文件**：严格按 `references/build-brief.md` 的内容合同写。可以润色措辞，**不能改变每个文件的职责**。
 7. **生成 `AGENTS.md`**：把 `references/rules.md` 落到库根目录，这是给后续所有 AI 助手读的规则。
-8. **验证**：逐项核对目录、检查所有双链指向真实存在的文件、确认示例都标了「脱敏示例」、扫描敏感字段。任何一项失败就先修再重报。
+8. **验证**：逐项核对目录、检查所有链接指向真实存在的文件、确认示例都标了「脱敏示例」、扫描敏感字段。任何一项失败就先修再重报。
 
 ### B. 日常维护（库已存在时）
 
@@ -72,7 +72,7 @@ metadata:
 
 - `04_日报素材/`、`05_文档原文/`、`07_附件/` **只读**；要提炼就把结论写到提炼层。
 - 完成分四层：`已提交 ≠ 已上线 ≠ 已验收 ≠ 已见效果`，不许合并成"已完成"。
-- 双链用**完整相对路径且不带 `.md` 后缀**。
+- 链接用标准 Markdown 相对路径（带 `.md` 后缀），Obsidian 和 GitHub 网页都能点。
 - 库中尚无对应笔记时提醒用户是否新建，**不要写空链接**。
 - 删除或覆盖已有文件、大改目录、配置 Git / 公开仓库、涉及账号证件 —— **全部先问用户**。
 - 禁止写入：密码、令牌、Cookie、验证码、私钥、完整身份证号、银行卡号；以及**没有来源却伪装成事实的内容**。
@@ -86,4 +86,4 @@ metadata:
 
 ## 自检
 
-若用户已 clone 本仓库，可运行 `python3 tools/vault_health_check.py --root .` 做断链、字段、状态和敏感信息检查。
+若用户已 clone 本仓库，可运行 `python tools/vault_health_check.py --root .` 做断链、字段、状态和敏感信息检查（Windows 也可双击 `tools/health-check.cmd`）。

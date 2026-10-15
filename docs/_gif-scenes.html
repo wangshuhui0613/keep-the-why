@@ -1,0 +1,193 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  :root {
+    --bg: #040609; --panel: #0b0f14; --panel2: #10161d;
+    --line: rgba(255,255,255,.13); --txt: #e8ecf1; --dim: #8b95a3;
+    --acc: #c8f751; --acc-d: #9bd132; --red: #ff6b6b; --blue: #6cb6ff;
+  }
+  body {
+    width: 1200px; height: 750px; overflow: hidden;
+    background: var(--bg); color: var(--txt);
+    font-family: "Microsoft YaHei", "PingFang SC", "Segoe UI", sans-serif;
+    display: flex; align-items: center; justify-content: center;
+  }
+  .scene { display: none; width: 1040px; }
+  .scene.on { display: block; }
+
+  /* ---------- terminal window ---------- */
+  .term {
+    background: var(--panel); border: 1px solid var(--line);
+    border-radius: 14px; overflow: hidden;
+    box-shadow: 0 30px 80px rgba(0,0,0,.55);
+  }
+  .term-bar {
+    display: flex; align-items: center; gap: 8px;
+    padding: 12px 16px; background: var(--panel2);
+    border-bottom: 1px solid var(--line);
+  }
+  .dot { width: 11px; height: 11px; border-radius: 50%; }
+  .dot.r { background: #ff5f57; } .dot.y { background: #febc2e; } .dot.g { background: #28c840; }
+  .term-title { margin-left: 8px; font-size: 12px; color: var(--dim); letter-spacing: .08em; }
+  .term-body {
+    padding: 22px 26px 26px;
+    font-family: Consolas, "Cascadia Mono", "Courier New", monospace;
+    font-size: 16.5px; line-height: 1.85; white-space: pre;
+  }
+  .p { color: var(--acc); }           /* prompt */
+  .c { color: #ffffff; }              /* command */
+  .o { color: var(--dim); }           /* output */
+  .ok { color: var(--acc); font-weight: bold; }
+  .cur { display: inline-block; width: 9px; height: 18px; background: var(--acc);
+         vertical-align: -3px; animation: blink 1s steps(1) infinite; }
+  @keyframes blink { 50% { opacity: 0; } }
+
+  /* ---------- scene 3: obsidian mock ---------- */
+  .obs { display: flex; height: 520px; background: var(--panel);
+         border: 1px solid var(--line); border-radius: 14px; overflow: hidden;
+         box-shadow: 0 30px 80px rgba(0,0,0,.55); }
+  .obs-side { width: 300px; border-right: 1px solid var(--line); background: var(--panel2);
+              padding: 16px 14px; font-size: 13.5px; }
+  .obs-side h5 { font-size: 11px; color: var(--dim); letter-spacing: .14em;
+                 margin: 0 0 10px 6px; font-weight: normal; }
+  .t-row { padding: 4px 8px; border-radius: 6px; color: var(--dim); white-space: nowrap; }
+  .t-row.act { background: rgba(200,247,81,.12); color: var(--acc); }
+  .obs-main { flex: 1; padding: 26px 34px; font-size: 15px; line-height: 1.9; overflow: hidden; }
+  .obs-main h2 { font-size: 21px; margin-bottom: 14px; color: #fff; }
+  .obs-main h4 { font-size: 13px; color: var(--acc); letter-spacing: .1em;
+                 margin: 16px 0 6px; font-weight: normal; }
+  .obs-main li { margin-left: 20px; color: #cdd5de; }
+  .obs-status { margin-top: 26px; padding-top: 12px; border-top: 1px solid var(--line);
+                font-size: 12px; color: var(--dim); display: flex; justify-content: space-between; }
+
+  /* ---------- scene 4: chat ---------- */
+  .chat { background: var(--panel); border: 1px solid var(--line); border-radius: 14px;
+          padding: 28px 30px; box-shadow: 0 30px 80px rgba(0,0,0,.55); }
+  .msg { display: flex; gap: 14px; margin-bottom: 22px; }
+  .ava { width: 38px; height: 38px; border-radius: 10px; flex-shrink: 0;
+         display: flex; align-items: center; justify-content: center;
+         font-size: 12px; font-weight: bold; }
+  .ava.u { background: #22303f; color: var(--blue); }
+  .ava.a { background: rgba(200,247,81,.15); color: var(--acc); }
+  .bub { background: var(--panel2); border: 1px solid var(--line); border-radius: 4px 14px 14px 14px;
+         padding: 14px 18px; font-size: 15px; line-height: 1.8; }
+  .bub .f { font-family: Consolas, monospace; font-size: 13px; color: var(--dim); }
+  .bub b { color: var(--acc); font-weight: normal; }
+
+  /* ---------- scene 6: end card ---------- */
+  .end { text-align: center; }
+  .end .logo { font-family: Consolas, monospace; font-size: 15px; color: var(--dim);
+               letter-spacing: .3em; margin-bottom: 26px; }
+  .end h1 { font-size: 44px; color: #fff; margin-bottom: 18px; font-weight: 600; }
+  .end .url { display: inline-block; font-family: Consolas, monospace; font-size: 19px;
+              color: var(--bg); background: var(--acc); padding: 12px 30px; border-radius: 8px; }
+  .end .sub { margin-top: 26px; color: var(--dim); font-size: 15.5px; }
+  .end .star { margin-top: 34px; color: var(--acc); font-size: 14px; letter-spacing: .06em; }
+
+  .cap { text-align: center; margin-top: 26px; color: var(--dim); font-size: 14px; letter-spacing: .05em; }
+</style>
+</head>
+<body>
+
+<!-- 1. clone -->
+<div class="scene on" id="s1">
+  <div class="term">
+    <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="term-title">bash — 80×24</span></div>
+    <div class="term-body"><span class="p">$</span> <span class="c">git clone https://github.com/wangshuhui0613/personal-kb-template.git</span>
+Cloning into <span class="o">'my-vault'</span>...
+remote: Enumerating objects: <span class="o">86</span>, done.
+Receiving objects: 100% <span class="o">(240/240), 1.2 MB/s</span>, done.
+<span class="p">$</span> <span class="c">cd my-vault</span><span class="cur"></span></div>
+  </div>
+  <div class="cap">一条命令，把整套结构带到本地</div>
+</div>
+
+<!-- 2. structure -->
+<div class="scene" id="s2">
+  <div class="term">
+    <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="term-title">bash — my-vault</span></div>
+    <div class="term-body"><span class="p">$</span> <span class="c">ls</span>
+my-vault
+├── <span class="c">01-个人/</span>          <span class="o">方向、规划与跨天行动</span>
+├── <span class="c">02-工作经历/</span>      <span class="o">项目、决策、经验与原始资料</span>
+├── <span class="c">03-复盘与规划/</span>    <span class="o">每日证据、周期复盘与下一阶段</span>
+├── <span class="c">.obsidian/</span>       <span class="o">模板、日记、附件路径已配好</span>
+├── <span class="c">skills/</span>          <span class="o">Agent Skill，AI 按规范写入</span>
+└── <span class="c">tools/</span>           <span class="o">体检脚本</span><span class="cur"></span></div>
+  </div>
+  <div class="cap">三个板块 + 开箱配置，Obsidian 直接「打开文件夹作为库」</div>
+</div>
+
+<!-- 3. daily note -->
+<div class="scene" id="s3">
+  <div class="obs">
+    <div class="obs-side">
+      <h5>MY VAULT</h5>
+      <div class="t-row">01-个人/</div>
+      <div class="t-row">02-工作经历/</div>
+      <div class="t-row">03-复盘与规划/</div>
+      <div class="t-row">&nbsp;&nbsp;01-每日记录/</div>
+      <div class="t-row act">&nbsp;&nbsp;&nbsp;&nbsp;2026-10-16.md</div>
+      <div class="t-row">&nbsp;&nbsp;02-周复盘/</div>
+      <div class="t-row">&nbsp;&nbsp;99-模板/</div>
+    </div>
+    <div class="obs-main">
+      <h2>2026-10-16 周五</h2>
+      <h4>今天真正发生了什么</h4>
+      <li>完成模板仓库的生态对齐：npx skills add 可装</li>
+      <h4>它改变了我哪个判断</h4>
+      <li>安装方式要从「手动复制」升级到生态标准命令</li>
+      <h4>下一步最小行动</h4>
+      <li>A-014 录制演示 GIF，嵌入 README（状态：进行中）</li>
+      <div class="obs-status"><span>38 words</span><span>模板：日报模板</span></div>
+    </div>
+  </div>
+  <div class="cap">点一下日历图标，今天的日报就建好了</div>
+</div>
+
+<!-- 4. AI writes -->
+<div class="scene" id="s4">
+  <div class="chat">
+    <div class="msg"><div class="ava u">你</div><div class="bub">帮我记一下：今天把模板仓库推到 GitHub 了，下一步录个演示 GIF</div></div>
+    <div class="msg"><div class="ava a">AI</div><div class="bub">已写入 <span class="f">03-复盘与规划/01-每日记录/2026-10-16.md</span><br>行动总览新增 <b>A-014 录制演示 GIF</b>（下一步动作：用 Playwright 截 6 个分镜）<br>编号、字段、状态已按规范补全</div></div>
+  </div>
+  <div class="cap">装了 Skill，说人话就能维护整个库</div>
+</div>
+
+<!-- 5. health check -->
+<div class="scene" id="s5">
+  <div class="term">
+    <div class="term-bar"><span class="dot r"></span><span class="dot y"></span><span class="dot g"></span><span class="term-title">bash — my-vault</span></div>
+    <div class="term-body"><span class="p">$</span> <span class="c">python tools/vault_health_check.py --root .</span>
+CHECK: 入口文件齐全 <span class="o">(10/10)</span>
+CHECK: 链接完整 <span class="o">(29/29)</span>
+CHECK: 行动字段与状态合法 <span class="o">(0 错误)</span>
+<span class="ok">PASS: 知识库体检通过</span><span class="cur"></span></div>
+  </div>
+  <div class="cap">结构坏了立刻知道，而不是三个月后</div>
+</div>
+
+<!-- 6. end -->
+<div class="scene end" id="s6">
+  <div class="logo">PERSONAL&nbsp;KB&nbsp;TEMPLATE</div>
+  <h1>让半年后的你，还能回答<br>当时为什么这么决定</h1>
+  <div class="url">github.com/wangshuhui0613/personal-kb-template</div>
+  <div class="sub">MIT · Obsidian 模板 + Agent Skill · 开箱即用</div>
+  <div class="star">如果它对你有用，给个 star，让更多人找到它</div>
+</div>
+
+<script>
+  // usage from playwright: location.hash = '#s3'
+  function show(id) {
+    document.querySelectorAll('.scene').forEach(function (el) { el.classList.remove('on'); });
+    var el = document.getElementById(id);
+    if (el) el.classList.add('on');
+  }
+  window.addEventListener('hashchange', function () { show(location.hash.slice(1)); });
+  show(location.hash.slice(1) || 's1');
+</script>
+</body>
+</html>

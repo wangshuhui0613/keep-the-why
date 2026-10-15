@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Generate the two demo pages from a single source of truth.
 
-    python3 tools/build_demo.py
+    python tools/build_demo.py
 
 Reads the copy-paste build prompt out of `prompts/一键构建.md` and injects it
 into the demo shell twice:
