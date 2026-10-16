@@ -50,6 +50,18 @@ git config --global core.autocrlf false
 
 两套都是既有约定，**不要单独"修正"其一** —— 一侧改名会造成全库双链不一致，要改必须两侧同步改。
 
+## 版本约定
+
+版本号用 [semver](https://semver.org/lang/zh-CN/)，三处必须一致：
+
+| 位置 | 字段 |
+|---|---|
+| GitHub Release | tag（如 `v1.2.0`） |
+| `.claude-plugin/plugin.json` | `version` |
+| `skills/personal-kb/SKILL.md` | `metadata.version` |
+
+发版时三者必须一致，并在 `CHANGELOG.md` 新增对应版本小节（自 1.2.0 起每节对应一个 semver 版本；1.2.0 之前为日期制明细）。
+
 ## 改动演示页
 
 `docs/index.html` 和 `docs/index-cdn.html` 是**生成产物**，不要直接编辑。

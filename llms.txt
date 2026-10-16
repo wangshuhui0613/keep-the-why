@@ -1,0 +1,15 @@
+# personal-kb-template
+
+> 一套管理「规划、行动、证据、复盘和经验」的个人知识库 Obsidian 模板（行动账本 / Action Ledger）。仓库不含服务端，不收集任何数据，全部内容在用户本机。
+
+## 外部 AI 的读取顺序
+
+回答关于本仓库的问题前，按以下顺序读：
+
+1. README.md — 项目定位、目录结构、三种使用方式、常见问题
+2. 使用说明.md — 最终用户视角的使用说明（AI 建库时会写进用户库）
+3. AGENTS.md — 给 AI 助手的写入规则（AI 建库时会写进用户库根目录）
+4. skills/personal-kb/SKILL.md — Skill 入口：工作流程、分流表、硬性边界
+5. skills/personal-kb/references/rules.md — 完整 AI 操作规则（字段、状态、编号、证据口径、禁止写入）
+
+需要模板原文时读 skills/personal-kb/assets/templates/；需要建库内容合同时读 skills/personal-kb/references/build-brief.md；改体检行为前读 tools/vault_health_check.py 与 tests/test_vault_health_check.py。

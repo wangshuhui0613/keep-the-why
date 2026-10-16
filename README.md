@@ -64,7 +64,8 @@ tags: [知识库, 模板, Obsidian, 知识管理]
 ## 目录结构
 
 ```text
-README.md / 使用说明.md / CONTRIBUTING.md / LICENSE
+README.md / README.en.md / 使用说明.md / Windows使用指南.md
+EXAMPLES.md / CHANGELOG.md / ROADMAP.md / CONTRIBUTING.md / AGENTS.md / LICENSE
 │
 ├── 01-个人/               方向、规划与跨天行动
 │   ├── 00-行动与跟进/
@@ -94,11 +95,18 @@ README.md / 使用说明.md / CONTRIBUTING.md / LICENSE
 │   ├── 07-对话沉淀/        从 AI 对话里提炼长期结论
 │   └── 99-模板/            日报、周复盘、月复盘、决策、经验卡片五个模板
 │
-├── prompts/        给 AI 用的构建指令
-├── skills/         Agent Skill（npx skills add 可装）
-├── tools/          体检脚本
-├── docs/           在线产品演示（GitHub Pages 首页）
-└── .obsidian/      已配好：模板文件夹、日记格式、附件路径
+├── .obsidian/      已配好：模板文件夹、日记格式、附件路径
+│
+│   # ↓ 以下是「AI 与展示资产」：给 AI 和展示用，删掉不影响笔记库
+│
+├── prompts/         给 AI 用的构建指令
+├── skills/          Agent Skill（npx skills add 可装）
+├── commands/        四个命名斜杠命令（Claude Code 插件安装后可用）
+├── tools/           体检脚本
+├── docs/            在线产品演示（GitHub Pages 首页）
+├── assets/          社交封面与 README 截图
+├── .claude-plugin/  Claude Code 插件市场清单
+└── .github/         CI、Issue / PR 模板、dependabot
 ```
 
 ## 快速开始
@@ -303,23 +311,23 @@ Obsidian 1.14 实拍，画面里全是模板自带的示例数据（虚构「产
 
 ## 只想要纯粹的 Obsidian 库？
 
-仓库里除了三个编号板块（`01-个人`、`02-工作经历`、`03-复盘与规划`），其余（`prompts/`、`skills/`、`commands/`、`tools/`、`docs/`、根目录几个 `.md`）都是给 AI 和展示用的。如果你只想要干净的笔记库，clone 之后跑一行：
+仓库里除了三个编号板块（`01-个人`、`02-工作经历`、`03-复盘与规划`），其余（`prompts/`、`skills/`、`commands/`、`tools/`、`docs/`、`.claude-plugin/`、`.github/`、`assets/`、根目录几个 `.md`）都是给 AI 和展示用的。如果你只想要干净的笔记库，clone 之后跑一行：
 
 macOS / Linux：
 
 ```bash
-rm -rf prompts skills commands tools docs .github CONTRIBUTING.md AGENTS.md
+rm -rf prompts skills commands tools docs .github .claude-plugin assets CONTRIBUTING.md AGENTS.md
 ```
 
 Windows PowerShell：
 
 ```powershell
-Remove-Item -Recurse -Force prompts, skills, commands, tools, docs, .github, CONTRIBUTING.md, AGENTS.md
+Remove-Item -Recurse -Force prompts, skills, commands, tools, docs, .github, .claude-plugin, assets, CONTRIBUTING.md, AGENTS.md
 ```
 
-保留 README、使用说明、LICENSE 和三个板块即可。
+保留 README、README.en、使用说明、Windows使用指南、EXAMPLES、CHANGELOG、ROADMAP、LICENSE 和三个板块即可。
 
-> 删掉之后，README、使用说明和 AGENTS.md 里指向这些目录的链接会失效——这**是正常的**，不影响笔记库本身使用。如果你之后想恢复，重新 clone 一份即可。
+> 删掉之后，README、README.en、使用说明、EXAMPLES、CHANGELOG 和 AGENTS.md 里指向这些目录的链接会失效——这**是正常的**，不影响笔记库本身使用。如果你之后想恢复，重新 clone 一份即可。
 
 ## 多台电脑 / 多个助手
 

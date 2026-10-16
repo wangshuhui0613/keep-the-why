@@ -1,6 +1,43 @@
 # 更新记录
 
-格式遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)。日期即「结构版本」。
+格式遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)。**[1.2.0] 之前为日期制明细，自 1.2.0 起每节对应一个 semver 版本。**
+
+## [1.2.0] - 2026-10-17
+
+自 v1.1.0 以来的变更（v1.1.0 已含内容见其 Release Notes，不在此重复）。
+
+### 新增
+
+- `commands/` 四个命名斜杠命令（`日报` / `周复盘` / `记一下` / `体检`）：装一次 Skill 后每天打几个字就能触发对应流程，不用复述长指令
+- `prompts/可选升级-MCP与CLI.md`：官方 CLI 与 MCP server 两条升级路线，附「五条不变规矩」；不装也能用，立零依赖
+- `03-复盘与规划/99-模板/` 新增周复盘、月复盘两个模板（Obsidian 插入模板菜单可用的模板达 5 个）
+- `assets/banner.png`（1280×640）社交封面图；`assets/screenshots/` 截图目录与命名/脱敏规范
+- `assets/screenshots/` 四张实拍截图就位（行动总览十字段 / 日报模板 / 图谱视图 / 插入模板弹层，Obsidian 1.14.4 实拍，内容为模板自带示例数据天然脱敏）；README 与 README.en 的「截图」节从规划态改为实际展示
+- `.github/PULL_REQUEST_TEMPLATE.md`：按 CONTRIBUTING 的 PR 要求做成 checklist（改了什么 / 为什么 / 是否破坏性 / 体检输出 / 已脱敏）
+- `CODE_OF_CONDUCT.md`（Contributor Covenant 2.1）、`SECURITY.md`（无服务端、无数据收集；安全问题指脚本误报漏报与示例数据泄露）、`.github/dependabot.yml`（只配 github-actions，weekly）
+- `llms.txt`：规定外部 AI 读本仓库的顺序（README → 使用说明 → AGENTS.md → SKILL.md → rules.md）
+- `tests/test_vault_health_check.py`：体检脚本单测（stdlib unittest，10 个用例：两种链接语法断链、行动字段与状态、敏感信息模式、退出码语义、模板源资件按目标目录解析）；CI 在体检前先跑单测
+
+### 变更
+
+- **版本号体系统一**：`SKILL.md` metadata.version 由 "1.2" 改为 "1.2.0"，与 release tag、`.claude-plugin/plugin.json` 对齐；`CONTRIBUTING.md` 补充版本约定（semver 同时用于 release tag、plugin.json、SKILL.md，发版时三者必须一致）
+- `tools/vault_health_check.py`：`skills/personal-kb/assets/templates/` 下的模板源资件改按目标目录（`03-复盘与规划/99-模板/`）校验相对链接，不再按源仓库位置误判断链
+- **链接规则三处口径统一**：`AGENTS.md`、`rules.md`、`一键构建.md` 与 SKILL.md 实际行为对齐为「双链一律用完整相对路径的标准 Markdown 链接，带 `.md` 后缀」——此前文档要求不带后缀、实际文件与体检脚本却要求带，按旧文档建库反而报断链
+- `SKILL.md` description 触发词扩充（体检 / 查重 / 整理旧库），新增「命名斜杠命令」表
+- README 方式二补 npx 交互菜单预告与非交互参数（`--agent '*' -y`）；「三个 0x- 板块」黑话改全称；新增「模板更新了怎么办」与「截图」两节
+- `README.en.md` 同步：Screenshots / Template Updates / Multiple Computers 三节，四口令表，npx 交互提示，链接中文文档统一标 (in Chinese)
+- `rules.md` 新增「时效三分」一节（长效 / 时效 / 指针），方法来源致谢 OKM
+- `tools/vault_health_check.py` 新增 INFO 行（入口被引用 9/11、行动被提及 2/3）：空模板里「结构存在但没被用」只警告不计 FAIL
+- `ROADMAP.md`：「英文 README」「从 issue 沉淀 FAQ」从未完成移入已完成，刷新过期条目
+- README / README.en 目录结构图补齐 9 个根级条目，并用分组注释标明「AI 与展示资产」
+- 文档口径统一：注明两种建库路径的模板数差异（clone 路径插入菜单 5 个；AI 建库路径 3 个，周 / 月复盘模板在各自子目录）；`Windows使用指南.md` 修正「3 个」说法；纯净库删除命令两版统一（均删 `commands/` 与 `.claude-plugin/`）
+
+### 修复
+
+- **Skill 路径建库模板断链**：`skills/personal-kb/assets/templates/` 五个模板的相对链接深度由 `../../../../` 改为 `../../`——这些模板按 build-brief 会进入用户库 `03-复盘与规划/99-模板/`（周 / 月复盘模板在 `02-周复盘/`、`03-月复盘/`，同深度），此前按源仓库位置写的深度会让 Skill 路径建库的用户第一份日报 / 周复盘 / 决策 / 经验卡片里的链接全断、体检 FAIL
+- `EXAMPLES.md` 代码块内被误当成真链接的示例路径改为纯文本；`使用说明.md` 修正脚本错路径、补日期占位符提示、模板清单与事实一致
+- `demo.gif` 第 5 屏数字与实跑对齐（111/111、32/32、INFO 行），结尾屏补 Windows 用户指引
+- `README.en.md` FAQ 补「库内容中文能否用英文」条
 
 ## [2026-10-16] 英文版 / 示例 / 插件市场 / 真问题修复
 

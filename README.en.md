@@ -58,7 +58,8 @@ plan → act → evidence → review → lessons → adjust plans and actions
 ## Structure
 
 ```text
-README.md / 使用说明.md / CONTRIBUTING.md / LICENSE
+README.md / README.en.md / 使用说明.md (in Chinese) / Windows使用指南.md (in Chinese)
+EXAMPLES.md (in Chinese) / CHANGELOG.md (in Chinese) / ROADMAP.md (in Chinese) / CONTRIBUTING.md (in Chinese) / AGENTS.md (in Chinese) / LICENSE
 │
 ├── 01-个人/               direction, planning, cross-day actions
 │   ├── 00-行动与跟进/
@@ -88,12 +89,18 @@ README.md / 使用说明.md / CONTRIBUTING.md / LICENSE
 │   ├── 07-对话沉淀/         long-term conclusions mined from AI chats
 │   └── 99-模板/             five templates: daily, weekly, monthly, decision, experience card
 │
-├── commands/       named slash commands (/日报 /周复盘 /记一下 /体检)
+├── .obsidian/      preconfigured: template folder, daily note format, attachment path
+│
+│   # ↓ "AI & presentation assets" below — for AI and showcase use, safe to delete
+│
 ├── prompts/         build instructions for your AI
 ├── skills/         Agent Skill (installable via npx skills add)
+├── commands/       four named slash commands (after the Claude Code plugin install)
 ├── tools/          health check script
 ├── docs/           online product demo (GitHub Pages)
-└── .obsidian/      preconfigured: template folder, daily note format, attachment path
+├── assets/         social cover image and README screenshots
+├── .claude-plugin/ Claude Code plugin marketplace manifest
+└── .github/        CI, issue / PR templates, dependabot
 ```
 
 ## Quick Start
@@ -296,23 +303,23 @@ Naming and size requirements are in `assets/screenshots/README.md`.
 
 ## Just Want a Clean Vault?
 
-Besides the three numbered sections (`01-个人`, `02-工作经历`, `03-复盘与规划`), everything else in this repo (`prompts/`, `skills/`, `commands/`, `tools/`, `docs/`, and the root-level `.md` files) exists for AI and presentation. If you only want a clean notes vault, run one line after cloning:
+Besides the three numbered sections (`01-个人`, `02-工作经历`, `03-复盘与规划`), everything else in this repo (`prompts/`, `skills/`, `commands/`, `tools/`, `docs/`, `.claude-plugin/`, `.github/`, `assets/`, `CONTRIBUTING.md`, `AGENTS.md`) exists for AI and presentation. If you only want a clean notes vault, run one line after cloning:
 
 macOS / Linux:
 
 ```bash
-rm -rf prompts skills commands tools docs .github CONTRIBUTING.md AGENTS.md
+rm -rf prompts skills commands tools docs .github .claude-plugin assets CONTRIBUTING.md AGENTS.md
 ```
 
 Windows PowerShell:
 
 ```powershell
-Remove-Item -Recurse -Force prompts, skills, commands, tools, docs, .github, CONTRIBUTING.md, AGENTS.md
+Remove-Item -Recurse -Force prompts, skills, commands, tools, docs, .github, .claude-plugin, assets, CONTRIBUTING.md, AGENTS.md
 ```
 
-Keep README, 使用说明, LICENSE and the three sections.
+Keep README, README.en, 使用说明, Windows使用指南, EXAMPLES, CHANGELOG, ROADMAP, LICENSE and the three sections.
 
-> After deleting, links in README / 使用说明 / AGENTS.md pointing at those folders will break — that's **normal** and doesn't affect the vault itself. To restore, just clone again.
+> After deleting, links in README / README.en / 使用说明 / EXAMPLES / CHANGELOG / AGENTS.md pointing at those folders will break — that's **normal** and doesn't affect the vault itself. To restore, just clone again.
 
 ## Multiple Computers / Multiple Assistants
 

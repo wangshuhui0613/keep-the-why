@@ -27,7 +27,7 @@ Obsidian →「打开文件夹作为库」→ 选中解压出来的目录。模�
 | 你想做什么 | Windows 上怎么做 |
 |---|---|
 | 建今天的日记 | 点左侧日历图标（不用敲命令） |
-| 插入模板 | `Ctrl + P` →「插入模板」→ 选日报 / 决策 / 经验卡片模板 |
+| 插入模板 | `Ctrl + P` →「插入模板」→ 选日报 / 周复盘 / 月复盘 / 决策 / 经验卡片模板（clone 路径共 5 个） |
 | 跑体检 | **双击 `tools\health-check.cmd`**，或命令行里 `python tools\vault_health_check.py --root .` |
 | 只要纯净笔记库 | PowerShell 里跑下面的删除命令（见第五节） |
 
@@ -55,10 +55,10 @@ Obsidian →「打开文件夹作为库」→ 选中解压出来的目录。模�
 PowerShell（在库根目录执行）：
 
 ```powershell
-Remove-Item -Recurse -Force prompts, skills, tools, docs, .github, CONTRIBUTING.md, AGENTS.md
+Remove-Item -Recurse -Force prompts, skills, commands, tools, docs, .github, .claude-plugin, CONTRIBUTING.md, AGENTS.md
 ```
 
-删掉之后 README、使用说明里指向这些目录的链接会失效——**这是正常的**，不影响笔记库本身。想恢复就重新下载一份。
+删掉之后 README、README.en、使用说明、EXAMPLES、CHANGELOG 里指向这些目录的链接会失效——**这是正常的**，不影响笔记库本身。想恢复就重新下载一份。
 
 ## 六、其他 Windows 特有提醒
 
