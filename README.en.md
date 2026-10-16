@@ -282,7 +282,17 @@ Arrow keys to page, space for next, auto-play at the bottom right.
 
 ## Screenshots
 
-Real Obsidian screenshots (desensitized) live in `assets/screenshots/`. Four are planned: the Action Dashboard's ten-column table, a filled-in daily note, the Graph view, and the moment of inserting a template. Naming and size requirements are in that directory's README.
+Real Obsidian 1.14 screenshots — everything on screen is the template's built-in sample data (fictional "Product A", desensitized out of the box):
+
+| Action Dashboard · ten columns | Daily note template |
+|---|---|
+| ![Action Dashboard](assets/screenshots/01-action-dashboard.png) | ![Daily note template](assets/screenshots/02-daily-note.png) |
+
+| Graph view | Insert template |
+|---|---|
+| ![Graph view](assets/screenshots/03-graph-view.png) | ![Insert template](assets/screenshots/04-insert-template.png) |
+
+Naming and size requirements are in `assets/screenshots/README.md`.
 
 ## Just Want a Clean Vault?
 

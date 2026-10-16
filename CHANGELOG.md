@@ -18,6 +18,7 @@
 - `prompts/可选升级-MCP与CLI.md`：官方 CLI 与 MCP server 两条升级路线，附「五条不变规矩」；不装也能用，立零依赖
 - `03-复盘与规划/99-模板/` 新增周复盘、月复盘两个模板（Obsidian 插入菜单可用的模板达 5 个）
 - `assets/banner.png`（1280×640）社交封面图；`assets/screenshots/` 截图目录与命名/脱敏规范
+- `assets/screenshots/` 四张实拍截图就位（行动总览十字段 / 日报模板 / 图谱视图 / 插入模板弹层，Obsidian 1.14.4 实拍，内容为模板自带示例数据天然脱敏）；README 与 README.en 的「截图」节从规划态改为实际展示
 
 ### 变更
 

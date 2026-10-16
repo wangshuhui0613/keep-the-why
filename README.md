@@ -289,7 +289,17 @@ Windows 用户也可以直接双击 `tools/health-check.cmd`。Windows 专属细
 
 ## 截图
 
-Obsidian 实拍截图（脱敏）放在 `assets/screenshots/`，规划四张：行动总览十字段表格、一篇写好的日报、图谱视图、插入模板的瞬间。命名与尺寸要求见该目录下的 README。
+Obsidian 1.14 实拍，画面里全是模板自带的示例数据（虚构「产品 A」，开箱即脱敏）：
+
+| 行动总览 · 十字段 | 日报模板 |
+|---|---|
+| ![行动总览](assets/screenshots/01-action-dashboard.png) | ![日报模板](assets/screenshots/02-daily-note.png) |
+
+| 图谱视图 | 插入模板 |
+|---|---|
+| ![图谱视图](assets/screenshots/03-graph-view.png) | ![插入模板](assets/screenshots/04-insert-template.png) |
+
+命名与尺寸要求见 `assets/screenshots/README.md`。
 
 ## 只想要纯粹的 Obsidian 库？
 
