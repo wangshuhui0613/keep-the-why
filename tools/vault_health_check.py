@@ -26,6 +26,13 @@ from pathlib import Path
 # 各机私有目录：本机状态、工具缓存、版本库内部，都不算知识库内容。
 PRIVATE_DIRS = frozenset({".git", ".workbuddy", ".obsidian", "node_modules", "__pycache__", ".github"})
 
+# 模板源资件目录与目标目录：skills/ 里的模板按 build-brief 最终进入用户库的
+# 03-复盘与规划/99-模板/（周复盘模板在 02-周复盘/、月复盘模板在 03-月复盘/，
+# 与 99-模板/ 同深），相对链接按目标位置书写。这类文件不能按本仓库内的位置
+# 解析（必然误报断链），check_links 对它们改按目标目录校验。
+TEMPLATE_ASSET_PREFIX = "skills/personal-kb/assets/templates/"
+TEMPLATE_DEST_DIR = "03-复盘与规划/99-模板"
+
 REQUIRED_FILES = (
     "README.md",
     "使用说明.md",
@@ -127,6 +134,8 @@ def check_links(root: Path) -> tuple[list[str], int]:
         if path.suffix.lower() != ".md":
             continue
         text = path.read_text(encoding="utf-8", errors="replace")
+        relative = path.relative_to(root).as_posix()
+        base = root / TEMPLATE_DEST_DIR if relative.startswith(TEMPLATE_ASSET_PREFIX) else path.parent
         for style, target in extract_links(text):
             name = Path(target).name
             if "." in name and not name.endswith(".md"):
@@ -134,15 +143,15 @@ def check_links(root: Path) -> tuple[list[str], int]:
             total += 1
             if style == "[...](...)":
                 # 标准 Markdown 相对链接：相对当前文件所在目录解析
-                candidate = (path.parent / target).resolve()
+                candidate = (base / target).resolve()
                 if not candidate.is_file():
                     errors.append(
-                        f"断链：{path.relative_to(root).as_posix()} -> ({target})"
+                        f"断链：{relative} -> ({target})"
                     )
                 continue
             if not resolve(root, target):
                 errors.append(
-                    f"断链：{path.relative_to(root).as_posix()} -> [[{target}]]"
+                    f"断链：{relative} -> [[{target}]]"
                 )
     return errors, total
 
