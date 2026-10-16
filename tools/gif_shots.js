@@ -2,6 +2,10 @@
 /* Screenshot every GIF scene. Requires Node + playwright.
  *
  *   NODE_PATH=<path-to-node_modules> node tools/gif_shots.js docs/_gif-scenes.html <out-dir>
+ *
+ * Windows Git Bash 注意：NODE_PATH 要用 Windows 反斜杠路径并用单引号包住
+ *（NODE_PATH='C:\path\to\node_modules'）；MSYS 的 /c/... 写法 Node 识别不了，
+ *会静默解析失败并报莫名其妙的模块错误。
  */
 const { chromium } = require("playwright");
 const fs = require("fs");

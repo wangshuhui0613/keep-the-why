@@ -1,6 +1,8 @@
 # Obsidian 本机界面状态：只属于这台电脑，不共享、不提交
 .obsidian/workspace.json
 .obsidian/workspace-mobile.json
+.obsidian/appearance.json
+.obsidian/graph.json
 .obsidian/.cache/
 
 # 附件默认不进 Git —— 它们体积大，且最容易夹带身份证、合同、金额等隐私。

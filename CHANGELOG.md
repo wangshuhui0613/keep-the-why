@@ -2,6 +2,14 @@
 
 格式遵循 [Keep a Changelog](https://keepachangelog.com/zh-CN/1.1.0/)。**[1.2.0] 之前为日期制明细，自 1.2.0 起每节对应一个 semver 版本。**
 
+## [未发布]
+
+### 变更
+
+- `demo.gif` 第 5 屏体检数字同步为当前实跑结果（35/35，v1.2.0 新增 3 个治理文件后被扫描数从 32 变 35），重建管线与纪律不变
+- `.gitignore` 补充 `.obsidian/appearance.json` 与 `.obsidian/graph.json`：两者与既有的 workspace.json 同属 Obsidian 本机界面状态，克隆后用 Obsidian 打开不再冒出未跟踪文件
+- `tools/gif_shots.js` 头部补 Windows Git Bash 的 NODE_PATH 路径写法注意（反斜杠 + 单引号，MSYS 的 `/c/...` 写法 Node 识别不了）
+
 ## [1.2.0] - 2026-10-17
 
 自 v1.1.0 以来的变更（v1.1.0 已含内容见其 Release Notes，不在此重复）。
