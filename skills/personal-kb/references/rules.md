@@ -1,6 +1,6 @@
 ---
 title: AGENTS
-structure_version: 2026-10-15
+structure_version: 2026-10-17
 tags: [AI 规则, AGENTS]
 ---
 

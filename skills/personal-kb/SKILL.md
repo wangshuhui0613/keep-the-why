@@ -6,7 +6,7 @@ metadata:
   author: wangshuhui.com
   version: "1.2.0"
   repository: https://github.com/wangshuhui0613/personal-kb-template
-  structure_version: "2026-10-15"
+  structure_version: "2026-10-17"
 ---
 
 # 个人知识库搭建与维护
