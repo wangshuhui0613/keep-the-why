@@ -60,7 +60,19 @@ Remove-Item -Recurse -Force prompts, skills, commands, tools, docs, .github, .cl
 
 删掉之后 README、README.en、使用说明、EXAMPLES、CHANGELOG 里指向这些目录的链接会失效——**这是正常的**，不影响笔记库本身。想恢复就重新下载一份。
 
-## 六、其他 Windows 特有提醒
+## 六、多设备同步（可选，国内免费方案）
+
+单机使用完全不需要配。想手机也能看，国内免费组合是 **Remotely Save 插件 + 坚果云 WebDAV**：
+
+1. 装 Remotely Save（Obsidian 设置 → 第三方插件 → 社区插件市场，搜 `remotely-save`）；
+2. 坚果云网页端 → 账户信息 → 安全选项 → 添加应用密码（**必须用应用密码，不是登录密码**）；
+3. Remotely Save 设置里选坚果云，填应用密码，服务器地址 `https://dav.jianguoyun.com/dav/`；
+4. 忽略文件里加上 `.obsidian/workspace.json`、`.obsidian/workspace-mobile.json`、`.trash/`——这些是本机状态，同步了只会互相覆盖。
+
+> 官方 Sync 也可以，但收费；Git 同步适合习惯命令行的人（见 [可选升级-多设备与双助手](prompts/可选升级-多设备与双助手.md)）。
+> 插件市场打不开时，用 [PKMer 镜像](https://pkmer.cn/)或 Watt Toolkit 加速，也可以按插件页说明手动下载 `main.js`/`manifest.json`/`styles.css` 三件套离线安装。
+
+## 七、其他 Windows 特有提醒
 
 - **行尾符**：Windows 的 Git 默认会把文件行尾转换成 CRLF。自己用完全无感；只有当你打算把修改推回 GitHub 时才需要在 Git 里设置 `core.autocrlf=false`（[原因说明](https://github.com/wangshuhui0613/personal-kb-template/blob/main/CONTRIBUTING.md)）。
 - **别用记事本改 `.md` 文件**：记事本会加 BOM、可能改编码，Obsidian 会显示异常。用 Obsidian 本身、[VS Code](https://code.visualstudio.com) 或任何现代编辑器。

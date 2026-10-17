@@ -12,12 +12,15 @@ tags: [知识库, 模板, Obsidian, 知识管理]
 [![GitHub stars](https://img.shields.io/github/stars/wangshuhui0613/personal-kb-template?style=flat)](https://github.com/wangshuhui0613/personal-kb-template/stargazers)
 [![健康检查](https://github.com/wangshuhui0613/personal-kb-template/actions/workflows/health-check.yml/badge.svg)](https://github.com/wangshuhui0613/personal-kb-template/actions/workflows/health-check.yml)
 [![在线演示](https://img.shields.io/badge/演示-在线预览-blue)](https://wangshuhui0613.github.io/personal-kb-template/)
+[![skills.sh](https://img.shields.io/badge/skills.sh-npx%20skills%20add-8a5cf5)](https://skills.sh/wangshuhui0613/personal-kb-template)
 
 一套用于管理**规划、行动、证据、复盘和经验**的个人知识库结构。
 
 它不是收藏夹。收藏夹解决的是“存”，这套模板解决的是“**用**”——让半年后的你还能回答出：当时为什么这么决定。
 
 > **隐私承诺：所有数据只在你自己的电脑上。** 这个仓库不收集、不上传、不同步任何东西——clone 下来就是一堆纯粹的本地文件，断网也能用。
+
+> **零插件依赖**：不装任何社区插件、不需要插件市场代理，原生 Obsidian 就能跑——国内网络环境下开箱即用，离线也能维护。
 
 这套方法有个名字，叫**行动账本（Action Ledger）**：知识库按账本管——一个状态入口、五类科目、四层入账进度、三类凭证。展开见下文「几个关键设计」。
 
@@ -42,6 +45,7 @@ tags: [知识库, 模板, Obsidian, 知识管理]
 - [什么情况别用](#什么情况别用)
 - [常见问题（FAQ）](#常见问题faq)
 - [方法来源与致谢](#方法来源与致谢)
+- [路线图](#路线图)
 - [贡献](#贡献)
 - [Star History](#star-history)
 - [许可](#许可)
@@ -115,7 +119,7 @@ EXAMPLES.md / CHANGELOG.md / ROADMAP.md / CONTRIBUTING.md / AGENTS.md / LICENSE
 
 > 体检脚本需要 Python，但那是**可选步骤**——没装 Python 只是不能跑体检，库照常使用、照常维护。
 
-### 方式一：clone 下来直接用
+### 方式一：clone 下来直接用（约 10 分钟）
 
 ```bash
 git clone https://github.com/wangshuhui0613/personal-kb-template.git 我的知识库
@@ -135,7 +139,7 @@ git clone https://github.com/wangshuhui0613/personal-kb-template.git 我的知�
 
 > 更多上手细节见 [使用说明](使用说明.md)；不知道写到什么密度，看 [EXAMPLES](EXAMPLES.md) 里五篇填好的脱敏示例。
 
-### 方式二：装成 Agent Skill，让 AI 帮你建和维护
+### 方式二：装成 Agent Skill，让 AI 帮你建和维护（约 2 分钟）
 
 最快一条命令（需要 Node.js）：
 
@@ -166,9 +170,19 @@ claude plugin install personal-kb@personal-kb-template
 
 之后直接说「帮我搭个知识库」，或日常说「帮我记一下这件事」。
 
-### 方式三：不想装 Skill，只复制一段指令
+### 方式三：不想装 Skill，只复制一段指令（约 5 分钟）
 
 打开 [一键构建](prompts/一键构建.md)，把里面从「开始」到「结束」的整段复制给你的 AI 助手，它会一步步帮你把库建好并给出验证结果。
+
+### 哪个 AI 读哪个文件
+
+| 你在用的 AI | 喂给它什么 |
+|---|---|
+| Claude Code / Codex / Cursor 等编程 Agent | 方式二的 Skill 装好后自动生效；也可以直接把 [AGENTS.md](AGENTS.md) 指给它 |
+| 通用对话 AI（ChatGPT / DeepSeek / Kimi / 豆包 / 通义…） | 方式三的 [一键构建指令](prompts/一键构建.md) 整段；建好后日常维护同样指 AGENTS.md |
+| 装了 Skill 后的日常使用 | 直接说「帮我记一下 X」「跑个体检」，不用复制任何指令 |
+
+> 国产模型建议直接用中文 prompt，效果更好。指令末尾内置了投递自检，AI 复述不出指定两行就是被截断了，补发即可。
 
 ## 第一天，只做三件事
 
@@ -349,6 +363,10 @@ clone 型模板的固有问题：你拿不到后续的结构更新。两个办�
 
 结构变更都会写进 [CHANGELOG](CHANGELOG.md) 的「变更」节，更新前先读它，对得上再动。
 
+想第一时间知道有新版本：仓库页面右上角 **Watch → Custom → 勾选 Releases**，只收版本通知，不收日常 commit 刷屏。
+
+后续规划见 [ROADMAP](ROADMAP.md)。
+
 ## 老库迁移（/adopt）
 
 已经有一个用了很久的 Obsidian 库，不想推倒重来？对 AI 说「**/adopt**」或「帮我按这套结构迁移我的旧库」，它会按流程来：
@@ -398,6 +416,10 @@ clone 型模板的固有问题：你拿不到后续的结构更新。两个办�
 - 每一位提 issue、提 PR 的人
 
 有知道出处的遗漏，欢迎在 [CONTRIBUTING](CONTRIBUTING.md) 里指正。
+
+## 路线图
+
+已发布能力与下一步规划见 [ROADMAP](ROADMAP.md)。
 
 ## 贡献
 
