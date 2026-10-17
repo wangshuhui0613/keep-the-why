@@ -6,8 +6,10 @@
 
 ### 变更
 
-- `demo.gif` 第 5 屏体检数字同步为当前实跑结果（35/35，v1.2.0 新增 3 个治理文件后被扫描数从 32 变 35），重建管线与纪律不变
+- **模板放置统一收口 `03-复盘与规划/99-模板/`**：删除示例库 `02-周复盘/周复盘模板.md` 与 `03-月复盘/月复盘模板.md` 两个旧副本（与 `99-模板/` 新版仅差 frontmatter，而 frontmatter 正是 v1.1.0 已修复的「插入模板污染新日记」问题；两目录按仓库约定补 `.gitkeep` 保持骨架）；`prompts/一键构建.md` 目录树、`skills/personal-kb/assets/skeleton.txt`、`skills/personal-kb/references/build-brief.md` 映射表三处由「周 / 月复盘模板发去各自子目录」改为五个模板全部进 `99-模板/`——此前与同一份文件里「模板统一收口在 99-模板/」的规则自相矛盾，AI 建库用户插入菜单只有 3 个模板、周 / 月复盘模板不在菜单可达范围。统一后两种建库路径结构一致，插入菜单均 5 个
+- `复盘与规划.md` 模板行补全为五个模板链接（均指 `99-模板/`）；`使用说明.md`「两种建库路径模板数差异」注记改为「结构一致」；`Windows使用指南.md` 去掉「clone 路径」限定
 - `.gitignore` 补充 `.obsidian/appearance.json` 与 `.obsidian/graph.json`：两者与既有的 workspace.json 同属 Obsidian 本机界面状态，克隆后用 Obsidian 打开不再冒出未跟踪文件
+- `demo.gif` 第 5 屏体检数字与实跑对齐（链接 108/108、无敏感信息 33/33）；演示页两版经 `tools/build_demo.py` 重建
 - `tools/gif_shots.js` 头部补 Windows Git Bash 的 NODE_PATH 路径写法注意（反斜杠 + 单引号，MSYS 的 `/c/...` 写法 Node 识别不了）
 
 ## [1.2.0] - 2026-10-17
