@@ -11,6 +11,7 @@
 - `.gitignore` 补充 `.obsidian/appearance.json` 与 `.obsidian/graph.json`：两者与既有的 workspace.json 同属 Obsidian 本机界面状态，克隆后用 Obsidian 打开不再冒出未跟踪文件
 - `demo.gif` 第 5 屏体检数字与实跑对齐（链接 108/108、无敏感信息 33/33）；演示页两版经 `tools/build_demo.py` 重建
 - `tools/gif_shots.js` 头部补 Windows Git Bash 的 NODE_PATH 路径写法注意（反斜杠 + 单引号，MSYS 的 `/c/...` 写法 Node 识别不了）
+- **结构版本号 `structure_version` 校准为 2026-10-17**：README 与 `prompts/一键构建.md` frontmatter 自 2026-10-15 建库起未随结构变更推进，而 `.obsidian` 开箱配置与模板收口都已改变实际结构；演示页（`docs/_shell.html` 及两版生成物）封面 Structure 日期同步
 
 ## [1.2.0] - 2026-10-17
 

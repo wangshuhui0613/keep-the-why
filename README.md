@@ -1,6 +1,6 @@
 ---
 title: 个人知识库开源模板
-structure_version: 2026-10-15
+structure_version: 2026-10-17
 tags: [知识库, 模板, Obsidian, 知识管理]
 ---
 
