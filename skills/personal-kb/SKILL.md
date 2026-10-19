@@ -5,7 +5,7 @@ license: MIT
 metadata:
   author: wangshuhui.com
   version: "1.2.0"
-  repository: https://github.com/wangshuhui0613/personal-kb-template
+  repository: https://github.com/wangshuhui0613/keep-the-why
   structure_version: "2026-10-17"
 ---
 

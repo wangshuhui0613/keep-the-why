@@ -1,9 +1,9 @@
 # Personal Knowledge Base Template
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/wangshuhui0613/personal-kb-template?style=flat)](https://github.com/wangshuhui0613/personal-kb-template/stargazers)
-[![Health Check](https://github.com/wangshuhui0613/personal-kb-template/actions/workflows/health-check.yml/badge.svg)](https://github.com/wangshuhui0613/personal-kb-template/actions/workflows/health-check.yml)
-[![Live Demo](https://img.shields.io/badge/Demo-Live%20Preview-blue)](https://wangshuhui0613.github.io/personal-kb-template/)
+[![GitHub stars](https://img.shields.io/github/stars/wangshuhui0613/keep-the-why?style=flat)](https://github.com/wangshuhui0613/keep-the-why/stargazers)
+[![Health Check](https://github.com/wangshuhui0613/keep-the-why/actions/workflows/health-check.yml/badge.svg)](https://github.com/wangshuhui0613/keep-the-why/actions/workflows/health-check.yml)
+[![Live Demo](https://img.shields.io/badge/Demo-Live%20Preview-blue)](https://wangshuhui0613.github.io/keep-the-why/)
 
 **English** | [中文](README.md)
 
@@ -112,7 +112,7 @@ EXAMPLES.md (in Chinese) / CHANGELOG.md (in Chinese) / ROADMAP.md (in Chinese) /
 ### Option 1: Clone and use directly
 
 ```bash
-git clone https://github.com/wangshuhui0613/personal-kb-template.git my-vault
+git clone https://github.com/wangshuhui0613/keep-the-why.git my-vault
 ```
 
 Open it in Obsidian via "Open folder as vault". Templates, daily notes, and attachment paths are **already configured**:
@@ -132,18 +132,18 @@ Then do three things:
 Fastest, one command (needs Node.js):
 
 ```bash
-npx skills add wangshuhui0613/personal-kb-template
+npx skills add wangshuhui0613/keep-the-why
 ```
 
 `skills` is the standard install command of the Agent Skills ecosystem, supporting Claude Code, Codex, Cursor and 75+ agents.
 
-> The install pops up a "which agents do you want to install to?" menu — when unsure, select all. For non-interactive install in scripts: `npx skills add wangshuhui0613/personal-kb-template --agent '*' -y`.
+> The install pops up a "which agents do you want to install to?" menu — when unsure, select all. For non-interactive install in scripts: `npx skills add wangshuhui0613/keep-the-why --agent '*' -y`.
 
 Claude Code users can also use the plugin marketplace (either way works):
 
 ```bash
-claude plugin marketplace add wangshuhui0613/personal-kb-template
-claude plugin install personal-kb@personal-kb-template
+claude plugin marketplace add wangshuhui0613/keep-the-why
+claude plugin install personal-kb@keep-the-why
 ```
 
 Prefer not to use npx? Copy the whole `skills/personal-kb/` directory into your agent's skills directory:
@@ -333,7 +333,7 @@ The built-in problem with clone-type templates: you don't get later structural u
 
 1. **Add an upstream remote and merge by directory** (recommended, keeps all your content):
    ```bash
-   git remote add upstream https://github.com/wangshuhui0613/personal-kb-template.git
+   git remote add upstream https://github.com/wangshuhui0613/keep-the-why.git
    git fetch upstream
    ```
    Then merge only the directories you care about (usually `03-复盘与规划/99-模板/`, `skills/`, `tools/`); the three numbered sections are yours — keep them wholesale.
@@ -400,7 +400,7 @@ See [CONTRIBUTING](CONTRIBUTING.md). The most valuable feedback is "here's where
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=wangshuhui0613/personal-kb-template&type=Date)](https://star-history.com/#wangshuhui0613/personal-kb-template&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=wangshuhui0613/keep-the-why&type=Date)](https://star-history.com/#wangshuhui0613/keep-the-why&Date)
 
 ## License
 

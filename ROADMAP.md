@@ -1,6 +1,6 @@
 # 路线图
 
-按优先级排列，**不是时间承诺**。想法和进度以 [issue](https://github.com/wangshuhui0613/personal-kb-template/issues) 和 [CHANGELOG](CHANGELOG.md) 为准。
+按优先级排列，**不是时间承诺**。想法和进度以 [issue](https://github.com/wangshuhui0613/keep-the-why/issues) 和 [CHANGELOG](CHANGELOG.md) 为准。
 
 ## 已完成
 

@@ -1,5 +1,5 @@
 {
-  "name": "personal-kb-template",
+  "name": "keep-the-why",
   "owner": {
     "name": "wangshuhui",
     "url": "https://github.com/wangshuhui0613"
@@ -9,14 +9,14 @@
       "name": "personal-kb",
       "source": "./",
       "description": "从零搭建或日常维护一套个人知识库 Obsidian 库：三大板块、跨天行动唯一事实源、决策日志、经验卡片、日报与周期复盘，以及配套的 AI 写入规则。Build or maintain a personal knowledge base Obsidian vault with an action ledger at its core.",
-      "version": "1.2.0",
+      "version": "1.3.0",
       "author": {
         "name": "wangshuhui",
         "url": "https://wangshuhui.com"
       },
       "license": "MIT",
-      "repository": "https://github.com/wangshuhui0613/personal-kb-template",
-      "homepage": "https://wangshuhui0613.github.io/personal-kb-template/",
+      "repository": "https://github.com/wangshuhui0613/keep-the-why",
+      "homepage": "https://wangshuhui0613.github.io/keep-the-why/",
       "keywords": ["obsidian", "knowledge-base", "pkm", "second-brain", "personal-kb", "action-ledger"]
     }
   ]

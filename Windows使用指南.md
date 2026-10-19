@@ -13,7 +13,7 @@ GitHub 页面 → 绿色 `Code` 按钮 → `Download ZIP` → 解压到任意目
 先装 [Git for Windows](https://git-scm.com/download/win)，然后：
 
 ```powershell
-git clone https://github.com/wangshuhui0613/personal-kb-template.git 我的知识库
+git clone https://github.com/wangshuhui0613/keep-the-why.git 我的知识库
 ```
 
 > 路径里有中文没问题，Obsidian 和 Git 都正常处理。
@@ -74,6 +74,6 @@ Remove-Item -Recurse -Force prompts, skills, commands, tools, docs, .github, .cl
 
 ## 七、其他 Windows 特有提醒
 
-- **行尾符**：Windows 的 Git 默认会把文件行尾转换成 CRLF。自己用完全无感；只有当你打算把修改推回 GitHub 时才需要在 Git 里设置 `core.autocrlf=false`（[原因说明](https://github.com/wangshuhui0613/personal-kb-template/blob/main/CONTRIBUTING.md)）。
+- **行尾符**：Windows 的 Git 默认会把文件行尾转换成 CRLF。自己用完全无感；只有当你打算把修改推回 GitHub 时才需要在 Git 里设置 `core.autocrlf=false`（[原因说明](https://github.com/wangshuhui0613/keep-the-why/blob/main/CONTRIBUTING.md)）。
 - **别用记事本改 `.md` 文件**：记事本会加 BOM、可能改编码，Obsidian 会显示异常。用 Obsidian 本身、[VS Code](https://code.visualstudio.com) 或任何现代编辑器。
 - **杀毒软件误报**：极少数情况下杀毒软件会拦 `health-check.cmd`（因为它调用了 Python）。这是误报，整个仓库只有这一个可执行入口，源码就在文件里，可以自己看。

@@ -21,7 +21,7 @@ python tools/vault_health_check.py --root .
 | 缺东西 | 你需要的目录、模板或检查项 |
 | Bug | 体检脚本误报或漏报 |
 
-**去哪里提**：「怎么用」的疑问请到 [Discussions](https://github.com/wangshuhui0613/personal-kb-template/discussions)（Q&A 分类，别人也能搜到答案）；「坏了 / 缺东西」提 Issue；安全问题见 [SECURITY.md](SECURITY.md)，不要开公开 issue。
+**去哪里提**：「怎么用」的疑问请到 [Discussions](https://github.com/wangshuhui0613/keep-the-why/discussions)（Q&A 分类，别人也能搜到答案）；「坏了 / 缺东西」提 Issue；安全问题见 [SECURITY.md](SECURITY.md)，不要开公开 issue。
 
 ## 提 PR
 

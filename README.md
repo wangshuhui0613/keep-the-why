@@ -9,10 +9,10 @@ tags: [知识库, 模板, Obsidian, 知识管理]
 [English](README.en.md) | 中文
 
 [![License: MIT](https://img.shields.io/badge/License-MIT-brightgreen.svg)](LICENSE)
-[![GitHub stars](https://img.shields.io/github/stars/wangshuhui0613/personal-kb-template?style=flat)](https://github.com/wangshuhui0613/personal-kb-template/stargazers)
-[![健康检查](https://github.com/wangshuhui0613/personal-kb-template/actions/workflows/health-check.yml/badge.svg)](https://github.com/wangshuhui0613/personal-kb-template/actions/workflows/health-check.yml)
-[![在线演示](https://img.shields.io/badge/演示-在线预览-blue)](https://wangshuhui0613.github.io/personal-kb-template/)
-[![skills.sh](https://img.shields.io/badge/skills.sh-npx%20skills%20add-8a5cf5)](https://skills.sh/wangshuhui0613/personal-kb-template)
+[![GitHub stars](https://img.shields.io/github/stars/wangshuhui0613/keep-the-why?style=flat)](https://github.com/wangshuhui0613/keep-the-why/stargazers)
+[![健康检查](https://github.com/wangshuhui0613/keep-the-why/actions/workflows/health-check.yml/badge.svg)](https://github.com/wangshuhui0613/keep-the-why/actions/workflows/health-check.yml)
+[![在线演示](https://img.shields.io/badge/演示-在线预览-blue)](https://wangshuhui0613.github.io/keep-the-why/)
+[![skills.sh](https://img.shields.io/badge/skills.sh-npx%20skills%20add-8a5cf5)](https://skills.sh/wangshuhui0613/keep-the-why)
 
 一套用于管理**规划、行动、证据、复盘和经验**的个人知识库结构。
 
@@ -122,7 +122,7 @@ EXAMPLES.md / CHANGELOG.md / ROADMAP.md / CONTRIBUTING.md / AGENTS.md / LICENSE
 ### 方式一：clone 下来直接用（约 10 分钟）
 
 ```bash
-git clone https://github.com/wangshuhui0613/personal-kb-template.git 我的知识库
+git clone https://github.com/wangshuhui0613/keep-the-why.git 我的知识库
 ```
 
 用 Obsidian「打开文件夹作为库」选中它。模板、日记、附件路径**已经配好**，开箱即用：
@@ -144,18 +144,18 @@ git clone https://github.com/wangshuhui0613/personal-kb-template.git 我的知�
 最快一条命令（需要 Node.js）：
 
 ```bash
-npx skills add wangshuhui0613/personal-kb-template
+npx skills add wangshuhui0613/keep-the-why
 ```
 
 `skills` 是 Agent Skills 生态的标准安装命令，支持 Claude Code、Codex、Cursor 等 75+ 个 Agent。
 
-> 安装过程会弹出「要装到哪些 Agent」的选择菜单——不确定就全选。想在脚本里非交互安装：`npx skills add wangshuhui0613/personal-kb-template --agent '*' -y`。
+> 安装过程会弹出「要装到哪些 Agent」的选择菜单——不确定就全选。想在脚本里非交互安装：`npx skills add wangshuhui0613/keep-the-why --agent '*' -y`。
 
 Claude Code 用户也可以走插件市场（二选一）：
 
 ```bash
-claude plugin marketplace add wangshuhui0613/personal-kb-template
-claude plugin install personal-kb@personal-kb-template
+claude plugin marketplace add wangshuhui0613/keep-the-why
+claude plugin install personal-kb@keep-the-why
 ```
 
 不想用 npx，也可以把 `skills/personal-kb/` 整个目录复制到你的 Agent 的 skills 目录：
@@ -366,7 +366,7 @@ clone 型模板的固有问题：你拿不到后续的结构更新。两个办�
 
 1. **加 upstream remote 按目录合并**（推荐，保留你的全部内容）：
    ```bash
-   git remote add upstream https://github.com/wangshuhui0613/personal-kb-template.git
+   git remote add upstream https://github.com/wangshuhui0613/keep-the-why.git
    git fetch upstream
    ```
    然后只合并你关心的目录（通常是 `03-复盘与规划/99-模板/`、`skills/`、`tools/`），三个编号板块里的内容是你自己的，整体保留。
@@ -438,7 +438,7 @@ clone 型模板的固有问题：你拿不到后续的结构更新。两个办�
 
 ## Star History
 
-[![Star History Chart](https://api.star-history.com/svg?repos=wangshuhui0613/personal-kb-template&type=Date)](https://star-history.com/#wangshuhui0613/personal-kb-template&Date)
+[![Star History Chart](https://api.star-history.com/svg?repos=wangshuhui0613/keep-the-why&type=Date)](https://star-history.com/#wangshuhui0613/keep-the-why&Date)
 
 ## 许可
 
