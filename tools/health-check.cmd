@@ -1,6 +1,6 @@
 @echo off
 REM ============================================================
-REM  personal-kb-template one-click health check (Windows)
+REM  keep-the-why one-click health check (Windows)
 REM  Double-click this file to run. Read-only: it never
 REM  modifies any file.
 REM  Python is ONLY needed for this optional health check -

@@ -1,8 +1,8 @@
 blank_issues_enabled: true
 contact_links:
   - name: 先看使用说明
-    url: https://github.com/wangshuhui0613/personal-kb-template/blob/main/%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.md
+    url: https://github.com/wangshuhui0613/keep-the-why/blob/main/%E4%BD%BF%E7%94%A8%E8%AF%B4%E6%98%8E.md
     about: 大部分「怎么用」的问题在这篇里都有答案
   - name: 在线演示
-    url: https://wangshuhui0613.github.io/personal-kb-template/
+    url: https://wangshuhui0613.github.io/keep-the-why/
     about: 不想 clone，先在浏览器里看这套结构讲什么

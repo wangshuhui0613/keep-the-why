@@ -1,4 +1,4 @@
-# personal-kb-template
+# keep-the-why
 
 > 一套管理「规划、行动、证据、复盘和经验」的个人知识库 Obsidian 模板（行动账本 / Action Ledger）。仓库不含服务端，不收集任何数据，全部内容在用户本机。
 
