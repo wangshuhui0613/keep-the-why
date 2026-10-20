@@ -167,7 +167,7 @@ Open [一键构建](prompts/一键构建.md) (in Chinese), copy the whole block 
 Whichever option you picked, day one is these two things, five minutes each:
 
 1. **Write your first daily note.** Click the calendar icon in Obsidian, or just tell your AI "note down what I did today". What actually happened today is the only raw material this vault cannot fake.
-2. **Put the thing on your mind into the Action Dashboard.** Give it an ID (`A-001`) and write the next concrete action and its status — start with the "light tier" (three columns are enough), and from this second on it has earned the right to be tracked. When it grows into something that needs evidence, fill in the rest of the fields (see the registration notes in [Action Dashboard](01-个人/00-行动与跟进/行动总览.md)).
+2. **Put the thing on your mind into the Action Dashboard.** Open the [Action Dashboard](01-个人/00-行动与跟进/行动总览.md), **delete the three sample rows**, then give your own item an ID (starting from `A-001`) and write the next concrete action and its status — start with the "light tier" (three columns are enough), and from this second on it has earned the right to be tracked. When it grows into something that needs evidence, fill in the rest of the fields (see the registration notes at the top of the Action Dashboard).
 
 After these two, the vault starts producing for you. Come back to "Daily Use" after a week.
 

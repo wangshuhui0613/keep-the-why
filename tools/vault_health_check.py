@@ -9,6 +9,8 @@ What it catches:
     which is the classic silent rot (GitHub renders the latter, Obsidian the
     former; both must point at a real file)
   * action rows with missing fields, illegal states, or closed without evidence
+    (light-tier rows — all seven non-core fields empty — are only checked for
+    ID / next action / status; see the two registration tiers in 行动总览)
   * credentials and other sensitive values that should never have been written
   * template copies that drifted apart between 03-复盘与规划/99-模板/ (the
     Obsidian insertion source) and skills/personal-kb/assets/templates/ (the
@@ -69,6 +71,9 @@ ACTION_FIELDS = (
     "编号", "下一步动作", "状态", "状态原因", "来源",
     "归属", "硬截止", "建议复核", "完成定义", "完成证据",
 )
+
+# 轻档必填三列（行动总览「两种登记档」）：其余七列留空即视为轻档
+LIGHT_FIELDS = ("编号", "下一步动作", "状态")
 ACTION_ID_RE = re.compile(r"^[AEWJH]-\d{3}$")
 STATES = {"未开始", "进行中", "等待", "待判断", "暂缓", "状态不明", "已完成", "已取消"}
 CLOSED = {"已完成", "已取消"}
@@ -207,7 +212,12 @@ def check_actions(root: Path) -> tuple[list[str], int]:
         if aid in seen:
             errors.append(f"行动编号重复：{aid}")
         seen.add(aid)
-        for field in ACTION_FIELDS:
+        # 轻档/全档分级：七个非核心字段全空 = 轻档，只校验编号/动作/状态；
+        # 任一非空 = 全档，十字段全校验（见行动总览「两种登记档」）。
+        rest = {f: row.get(f, "").strip() for f in ACTION_FIELDS if f not in LIGHT_FIELDS}
+        is_light = all(v == "" for v in rest.values())
+        required = LIGHT_FIELDS if is_light else ACTION_FIELDS
+        for field in required:
             if field not in row:
                 errors.append(f"行动表缺少字段：{field}（{aid}）")
             elif not row[field].strip():
