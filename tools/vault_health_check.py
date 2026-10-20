@@ -287,7 +287,15 @@ def check_usage(root: Path) -> tuple[int, int, int, int]:
 
 
 def check_template_sync(root: Path) -> tuple[list[str], int]:
-    """模板双副本一致性。返回 (问题列表, 检查的模板数)。"""
+    """模板双副本一致性。返回 (问题列表, 检查的模板数)。
+
+    仅在库同时具备两侧目录时校验（本库以 Skill 分发时才存在双副本）；
+    任一侧目录缺失 = 该库不使用双副本机制，整体跳过——本检查的目的是防
+    「改一边忘另一边」，不是强制每个库都必须带模板。两侧目录都在而单个
+    文件缺失或不一致，仍然算问题。
+    """
+    if not (root / TEMPLATE_DEST_DIR).is_dir() or not (root / TEMPLATE_ASSET_PREFIX).is_dir():
+        return [], 0
     errors: list[str] = []
     for lib_rel, skill_rel in TEMPLATE_PAIRS:
         lib_p, skill_p = root / lib_rel, root / skill_rel

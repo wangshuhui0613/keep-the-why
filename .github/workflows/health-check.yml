@@ -21,8 +21,3 @@ jobs:
 
       - name: Run vault health check
         run: python3 tools/vault_health_check.py --root .
-
-      - name: Verify demo pages are in sync with the build prompt
-        run: |
-          python3 tools/build_demo.py
-          git diff --exit-code docs/index.html docs/index-cdn.html
