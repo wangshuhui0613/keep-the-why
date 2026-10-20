@@ -15,14 +15,14 @@ It is not a bookmark dump. Bookmarks solve "storing". This template solves "**us
 
 The method has a name: **Action Ledger** — run your knowledge base like a ledger: one status entry, five account types, four completion levels, three kinds of receipts. Details in "Key Designs" below.
 
-![First day as a new user: clone → open → write a daily note → health check](docs/demo.gif)
+![First day as a new user: clone → open → write a daily note](docs/demo.gif)
 
 ## Table of Contents
 
 - [Four Questions It Answers](#four-questions-it-answers)
 - [Structure](#structure)
 - [Quick Start](#quick-start)
-- [Day One: Three Things Only](#day-one-three-things-only)
+- [Day One: Two Things Only](#day-one-two-things-only)
 - [Daily Use](#daily-use)
 - [Who It's For](#who-its-for)
 - [Key Designs](#key-designs)
@@ -162,15 +162,14 @@ Then just say "help me set up a knowledge base", or day to day, "note this down 
 
 Open [一键构建](prompts/一键构建.md) (in Chinese), copy the whole block from "开始" to "结束" to your AI assistant, and it will build the vault step by step and give you verification results.
 
-## Day One: Three Things Only
+## Day One: Two Things Only
 
-Whichever option you picked, day one is these three things, five minutes each:
+Whichever option you picked, day one is these two things, five minutes each:
 
 1. **Write your first daily note.** Click the calendar icon in Obsidian, or just tell your AI "note down what I did today". What actually happened today is the only raw material this vault cannot fake.
-2. **Put the thing on your mind into the Action Dashboard.** Give it an ID (`A-001`), write the next concrete action. From this second on, it has earned the right to be tracked.
-3. **Run the health check once.** `python tools/vault_health_check.py --root .` (on Windows you can also double-click `tools/health-check.cmd`) to confirm the structure is intact.
+2. **Put the thing on your mind into the Action Dashboard.** Give it an ID (`A-001`) and write the next concrete action and its status — start with the "light tier" (three columns are enough), and from this second on it has earned the right to be tracked. When it grows into something that needs evidence, fill in the rest of the fields (see the registration notes in [Action Dashboard](01-个人/00-行动与跟进/行动总览.md)).
 
-After these three, the vault starts producing for you. Come back to "Daily Use" after a week.
+After these two, the vault starts producing for you. Come back to "Daily Use" after a week.
 
 ---
 
@@ -205,7 +204,7 @@ What you say to your AI → what actually happens:
 | You say | What happens |
 |---|---|
 | "Note this down: today I revised project A's plan, next step is booking a tech review" | Written into today's daily note (done + next step); anything cross-day automatically gets an ID in the Action Dashboard |
-| "Add 'book the tech review' to the Action Dashboard as A-002" | A new action row, all ten fields filled per spec, status and deadline written clearly |
+| "Add 'book the tech review' to the Action Dashboard as A-002" | A new action row: start with the three light-tier columns (ID / next action / status), then fill in the rest if evidence is needed |
 | "Record this decision: back then only two vendor quotes, we picked the pricier one…" | Written into the decision log with background, alternatives, constraints, and what was given up |
 | "Save a lesson: check the data before changing requirements" | De-duplicated against the whole vault first, then an experience card (conclusion, conditions, limits) |
 | "Write this week's review" | Reads all of this week's daily notes first; extracts only from them, never from memory |
@@ -219,7 +218,7 @@ With the Claude Code plugin install, there are also four ready-made slash comman
 |---|---|
 | `/日报` | Write today's daily note (five sections) |
 | `/周复盘` | Read all of this week's daily notes first, then extract the weekly review |
-| `/记一下` | Put something into the Action Dashboard: dedupe → classify → fill all ten fields |
+| `/记一下` | Put something into the Action Dashboard: dedupe → classify → start light, fill the rest only when needed |
 | `/体检` | Run the health check and read the results; investigate abnormal fluctuations |
 
 ## Who It's For

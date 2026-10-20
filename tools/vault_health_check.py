@@ -10,6 +10,9 @@ What it catches:
     former; both must point at a real file)
   * action rows with missing fields, illegal states, or closed without evidence
   * credentials and other sensitive values that should never have been written
+  * template copies that drifted apart between 03-复盘与规划/99-模板/ (the
+    Obsidian insertion source) and skills/personal-kb/assets/templates/ (the
+    Skill distribution asset)
   * entry pages and actions nobody references (warning only — structure that
     exists but is never used is the earliest sign of ledger rot)
 
@@ -32,6 +35,15 @@ PRIVATE_DIRS = frozenset({".git", ".workbuddy", ".obsidian", "node_modules", "__
 # 解析（必然误报断链），check_links 对它们改按目标目录校验。
 TEMPLATE_ASSET_PREFIX = "skills/personal-kb/assets/templates/"
 TEMPLATE_DEST_DIR = "03-复盘与规划/99-模板"
+
+# 模板双副本：99-模板/ 是 Obsidian 插入源，skills/assets/templates/ 是 Skill
+# 分发资产（agent 装 Skill 只带 skills/ 目录），两边内容必须一致。改一边忘
+# 另一边 = 两套用法静默分叉，故纳入体检（行尾归一化后比较，.gitattributes
+# 已统一 LF，但 Windows 工作区可能显示 CRLF）。
+TEMPLATE_PAIRS = tuple(
+    (f"{TEMPLATE_DEST_DIR}/{name}", f"{TEMPLATE_ASSET_PREFIX}{name}")
+    for name in ("日报模板.md", "周复盘模板.md", "月复盘模板.md", "决策模板.md", "经验卡片模板.md")
+)
 
 REQUIRED_FILES = (
     "README.md",
@@ -264,6 +276,21 @@ def check_usage(root: Path) -> tuple[int, int, int, int]:
     return entries_hit, len(entries), actions_hit, len(rows)
 
 
+def check_template_sync(root: Path) -> tuple[list[str], int]:
+    """模板双副本一致性。返回 (问题列表, 检查的模板数)。"""
+    errors: list[str] = []
+    for lib_rel, skill_rel in TEMPLATE_PAIRS:
+        lib_p, skill_p = root / lib_rel, root / skill_rel
+        if not lib_p.is_file() or not skill_p.is_file():
+            errors.append(f"副本缺失: {lib_rel} / {skill_rel}")
+            continue
+        a = lib_p.read_text(encoding="utf-8", errors="replace").replace("\r\n", "\n")
+        b = skill_p.read_text(encoding="utf-8", errors="replace").replace("\r\n", "\n")
+        if a != b:
+            errors.append(f"副本不一致: {lib_rel} ↔ {skill_rel}")
+    return errors, len(TEMPLATE_PAIRS)
+
+
 def measure(root: Path) -> dict[str, int]:
     def count(rel: str, predicate) -> int:
         directory = root / rel
@@ -287,11 +314,13 @@ def run(root: Path) -> list[tuple[str, str, list[str]]]:
     link_errors, link_total = check_links(root)
     action_errors, action_total = check_actions(root)
     sensitive_errors, sensitive_total, sensitive_dirty = check_sensitive(root)
+    sync_errors, sync_total = check_template_sync(root)
     return [
         ("入口文件齐全", f"{len(REQUIRED_FILES) - len(required_errors)}/{len(REQUIRED_FILES)}", required_errors),
         ("链接完整", f"{link_total - len(link_errors)}/{link_total}", link_errors),
         ("行动字段与状态合法", f"{len(action_errors)} 错误 / {action_total} 条行动", action_errors),
         ("无敏感信息", f"{sensitive_total - sensitive_dirty}/{sensitive_total} 个文件", sensitive_errors),
+        ("模板双副本一致", f"{sync_total - len(sync_errors)}/{sync_total}", sync_errors),
     ]
 
 
