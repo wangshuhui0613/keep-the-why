@@ -12,7 +12,7 @@ tags: [知识库, 模板, Obsidian, 知识管理]
 [![GitHub stars](https://img.shields.io/github/stars/wangshuhui0613/keep-the-why?style=flat)](https://github.com/wangshuhui0613/keep-the-why/stargazers)
 [![健康检查](https://github.com/wangshuhui0613/keep-the-why/actions/workflows/health-check.yml/badge.svg)](https://github.com/wangshuhui0613/keep-the-why/actions/workflows/health-check.yml)
 [![在线演示](https://img.shields.io/badge/演示-在线预览-blue)](https://wangshuhui0613.github.io/keep-the-why/)
-[![skills.sh](https://img.shields.io/badge/skills.sh-npx%20skills%20add-8a5cf5)](https://skills.sh/wangshuhui0613/keep-the-why)
+![Skill: npx skills add wangshuhui0613/keep-the-why](https://img.shields.io/badge/Skill-npx%20skills%20add-8a5cf5)
 
 一套用于管理**规划、行动、证据、复盘和经验**的个人知识库结构。
 
