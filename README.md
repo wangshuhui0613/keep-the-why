@@ -315,10 +315,9 @@ Windows 用户也可以直接双击 `tools/health-check.cmd`。Windows 专属细
 
 ## 在线预览
 
-- `docs/index.html` —— 离线自包含，双击就能在浏览器打开
-- `docs/index-cdn.html` —— 引了网络字体和动效，效果更丰富
+- `docs/index.html` —— 离线自包含，双击就能在浏览器打开；也可以看[在线版](https://wangshuhui0613.github.io/keep-the-why/)
 
-方向键翻页，空格下一页，右下角有自动播放。
+方向键 / 空格翻页，`#s3` 这样的深链可直接跳到第 3 屏。
 
 ## 截图
 

@@ -66,14 +66,14 @@ git config --global core.autocrlf false
 
 ## 改动演示页
 
-`docs/index.html` 和 `docs/index-cdn.html` 是**生成产物**，不要直接编辑。
+`docs/index.html` 是**生成产物**，不要直接编辑。
 
-改 `docs/_shell.html`，然后：
+源头在抖音视频项目：`抖音知识库视频/演示页-母版.html`（录屏母版，自带粒子背景、
+封面粒子文字与录屏提词器），由 `抖音知识库视频/生成库版演示页.py` 生成库版——
+去掉全部特效与提词、深色主题、系统字体栈、无外部依赖，只保留翻页阅读、
+文字入场动画与「复制完整指令」按钮。改母版后重跑该脚本即可。
 
-```bash
-python tools/build_demo.py
-```
-
-它会重新注入构建指令并同时产出两个版本，保证内容和离线版、CDN 版不会走散。
+> `docs/index-cdn.html`、`docs/_shell.html`、`tools/build_demo.py` 是更早的
+> 「幻灯片式产品演示」生产线产物，已被上面的视频叙事版取代，留档待删。
 
 GIF 的第 5 屏（体检画面）里的数字是**真实跑一遍体检的结果**。新增或删除任何 `.md` 文件后，重跑 `python tools/vault_health_check.py --root .`，把新数字同步进 `docs/_gif-scenes.html` 第 5 屏，再用 `tools/gif_shots.js` + `tools/build_gif.py` 重建 GIF。**不要手改 GIF 里的数字**——手改的一定会腐化。

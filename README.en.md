@@ -282,10 +282,9 @@ Windows-specific details (two Python install pitfalls, the Store "imposter", the
 
 ## Live Preview
 
-- `docs/index.html` — offline self-contained, double-click to open in a browser
-- `docs/index-cdn.html` — uses web fonts and animations, richer effects
+- `docs/index.html` — offline self-contained, double-click to open in a browser; or view the [hosted version](https://wangshuhui0613.github.io/keep-the-why/)
 
-Arrow keys to page, space for next, auto-play at the bottom right.
+Arrow keys / space to page; deep links like `#s3` jump straight to slide 3.
 
 ## Screenshots
 
