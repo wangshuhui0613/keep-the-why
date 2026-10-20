@@ -6,7 +6,7 @@
 
 ### 变更
 
-- **移除旧幻灯片演示页生产线**（用户 2026-10-20 授权删除）：`docs/index-cdn.html`（全效 CDN 版）、`docs/_shell.html`（幻灯片母版）、`tools/build_demo.py`（旧生成脚本）三件已被 10-20 上线的视频叙事版演示页（`docs/index.html`，源头为抖音视频项目母版 + `生成库版演示页.py`）完全取代；`.github/workflows/health-check.yml` 中「Verify demo pages are in sync」步骤（跑旧脚本并 diff 两个生成物）随之移除——该步骤防的是旧生产线漂移，对新生产线无意义且会因文件缺失直接 FAIL；`CONTRIBUTING.md` 演示页段同步标注移除日期
+- **移除旧幻灯片演示页生产线**（用户 2026-10-20 授权删除）：`docs/index-cdn.html`（全效 CDN 版）、`docs/_shell.html`（幻灯片母版）、`tools/build_demo.py`（旧生成脚本）三件已被 10-20 上线的视频叙事版演示页（`docs/index.html`，源头为抖音视频项目母版 + `生成库版演示页.py`）完全取代；`.github/workflows/health-check.yml` 中「Verify demo pages are in sync」步骤（跑旧脚本并 diff 两个生成物）随之移除——该步骤防的是旧生产线漂移，且提交的 `docs/index.html` 早已换成视频叙事深色版，与旧脚本产出相差 1073 行，校验恒红、徽章常亮。用户可见的 `docs/index.html` 与 `docs/demo.gif` 不受影响，README 引用不变
 - **仓库改名 `personal-kb-template` → `keep-the-why`**：与视频里的项目名「Keep the Why」对齐，解决品牌名与仓库名不一致导致观众搜不到的问题。旧仓库地址由 GitHub 自动重定向，已 Star / Fork / 提 Issue 的用户不受影响；全部自引用（README 中英文、CONTRIBUTING、ROADMAP、Windows 使用指南、`.claude-plugin` 插件元数据、Skill frontmatter）同步更新，marketplace 名随仓库改为 `keep-the-why`（安装命令 `claude plugin install personal-kb@keep-the-why`）；插件元数据版本 bump 1.2.0 → 1.3.0。1.2.0 及更早的条目保留旧名原文，不回溯修改
 - **`structure_version` 校准收尾**：上一轮只把 README 与 `prompts/一键构建.md` 推进到 2026-10-17，其余 13 个带 frontmatter 的文件（三个板块索引、行动总览、AGENTS.md、使用说明、Skill 的 SKILL.md 与 rules.md、可选升级 prompt）仍停在 2026-10-15，与演示页封面显示的 Structure 2026.10.17 对不上；现全部补齐，全库结构版本一致
 - **`EXAMPLES.md` 五篇示例落成真实文件**（新用户模拟测试抓到的缺口）：此前示例引用的日报 / 决策 / 经验卡片 / 周复盘 / 数据口径五个文件在仓库里并不存在，且编号与仓库现行模型漂移（DEC-014 / EXP-021 / A-003，仓库实际是内联在索引里的 DEC-001 起、EXP-001 起与 A-001/W-001/J-001）。现按仓库既有时间线（2026 年 10 月）补齐六个真实文件——`03-复盘与规划/01-每日记录/2026-10-15.md`、`03-复盘与规划/02-周复盘/2026-10-12至2026-10-18.md`、`02-工作经历/06_数据/注册转化率.md`，决策日志内联补 `DEC-003`、经验卡片索引内联补 `EXP-004`、行动总览「已完成 / 已取消」节补十字段示例行 `A-002`；示例路径从纯文本改为可点击链接（此前写在代码块里，体检脚本不校验，所以漂移了三个版本都没人发现），结尾补「删哪些」三步指引与删后体检预期
@@ -16,6 +16,8 @@
 - `README.md`：快速开始三条路径标注预计耗时（10 / 2 / 5 分钟）；新增「哪个 AI 读哪个文件」对照表（编程 Agent 走 Skill 或 AGENTS.md，通用对话 AI 走一键构建指令，国产模型建议中文 prompt）；首屏新增「零插件依赖」声明（不装社区插件、不需要插件市场代理、离线可用——直击国内网络环境痛点）；目录补「路线图」入口，「模板更新了怎么办」补 Watch → Releases 通知一行；徽章行新增 skills.sh
 - `Windows使用指南.md` 新增「多设备同步（可选，国内免费方案）」一节：Remotely Save + 坚果云 WebDAV 四步配置，含应用密码陷阱与忽略文件清单（`workspace.json` 等本机状态）
 - `CONTRIBUTING.md` 补分流规则一句话：用法疑问走 Discussions Q&A，坏了/缺了走 Issue，安全问题走 SECURITY.md 不开公开 issue
+- **GIF 场景源移出公网站点目录**：`docs/_gif-scenes.html` → `tools/demo-src/_gif-scenes.html`。`docs/` 是 GitHub Pages 站点根，录屏场景源不应公网可达；CONTRIBUTING、PR 模板与两个 GIF 工具的路径引用同步更新
+- **修复体检 CI 三连红**（两层，缺一不可）：① `check_template_sync` 在库不具备双副本目录时整体跳过（汇总记 0/0）——精简掉 `skills/` 只留笔记库的用户不应被误报「副本缺失 ×5」，该检查的目的是防「改一边忘另一边」，不是强制每个库都必须带模板；两侧目录都在而单个文件缺失或不一致，仍算问题。② `build_mini_vault` 补建 5 套模板双副本（`03-复盘与规划/99-模板/` ↔ `skills/personal-kb/assets/templates/`），让「完整小库返回 0」用例真正走过该检查（5/5）而不是跳过——只做①的话回归保护形同虚设
 
 ### 变更（承接上一轮，模板收口）
 

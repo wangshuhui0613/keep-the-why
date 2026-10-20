@@ -1,7 +1,7 @@
 #!/usr/bin/env node
 /* Screenshot every GIF scene. Requires Node + playwright.
  *
- *   NODE_PATH=<path-to-node_modules> node tools/gif_shots.js docs/_gif-scenes.html <out-dir>
+ *   NODE_PATH=<path-to-node_modules> node tools/gif_shots.js tools/demo-src/_gif-scenes.html <out-dir>
  *
  * Windows Git Bash 注意：NODE_PATH 要用 Windows 反斜杠路径并用单引号包住
  *（NODE_PATH='C:\path\to\node_modules'）；MSYS 的 /c/... 写法 Node 识别不了，

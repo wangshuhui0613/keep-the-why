@@ -3,7 +3,7 @@
 
 Pipeline (both steps needed):
 
-    NODE_PATH=<node_modules> node tools/gif_shots.js docs/_gif-scenes.html <shots-dir>
+    NODE_PATH=<node_modules> node tools/gif_shots.js tools/demo-src/_gif-scenes.html <shots-dir>
     python tools/build_gif.py --shots <shots-dir> --out docs/demo.gif
 """
 import argparse

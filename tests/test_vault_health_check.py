@@ -22,6 +22,7 @@ if str(REPO_ROOT) not in sys.path:
 from tools.vault_health_check import (  # noqa: E402
     ACTION_FIELDS,
     REQUIRED_FILES,
+    TEMPLATE_PAIRS,
     check_actions,
     check_links,
     check_sensitive,
@@ -67,10 +68,16 @@ def build_dashboard(root: Path, *rows: str) -> None:
 
 
 def build_mini_vault(root: Path) -> None:
-    """一套能通过全部检查的最小库：11 个入口文件 + 一条合法行动。"""
+    """一套能通过全部检查的最小库：11 个入口文件 + 一条合法行动 + 5 套模板双副本。"""
     for relative in REQUIRED_FILES:
         write(root, relative, f"# {Path(relative).stem}\n")
     build_dashboard(root, action_row("A-001"))
+    # 模板双副本：99-模板/ 是 Obsidian 插入源，skills/assets/templates/ 是 Skill
+    # 建库源，两边必须同时存在且内容一致（check_template_sync 检查项）。
+    for lib_rel, skill_rel in TEMPLATE_PAIRS:
+        text = f"# {Path(lib_rel).stem}\n"
+        write(root, lib_rel, text)
+        write(root, skill_rel, text)
 
 
 class ExtractLinksTests(unittest.TestCase):
